@@ -1,6 +1,7 @@
 package com.luckyxmoible.mymemo;
 
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -43,4 +44,7 @@ public interface DiaryDAO {
 
     @Query("SELECT * FROM Diary WHERE textContent IN(:textContents)")
     public List<Diary> findByTextContents(String[] textContents);
+
+    @Query("SELECT * FROM diary")
+    public LiveData<List<Diary>> monitorAllDiaries();
 }

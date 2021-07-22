@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">mymemo</string>
+    <string name="auto_theme_change">theme follow the time?</string>
+    <string name="passkey_len_str">length of passkey</string>
+    <string name="menu_settings">Settings</string>
 </resources>

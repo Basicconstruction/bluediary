@@ -5,6 +5,9 @@ import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import androidx.annotation.NonNull;
+
+import java.util.Date;
+
 /*
 * 主要数据类，用作存储数据，app主要构建对象，依赖于这个对象进行与数据库，ui等的交互。
 * 一个Diary即是一个日记对象。
@@ -15,8 +18,15 @@ public class Diary {
     @NonNull
     @PrimaryKey
     public String textContent;
+    public Date date;
+    @Ignore
     public Diary(String textContent){
         this.textContent = textContent;
+        this.date = new Date();
+    }
+    public Diary(String textContent,Date date){
+        this.textContent = textContent;
+        this.date = date;
     }
     @Ignore
     public Diary(){

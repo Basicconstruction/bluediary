@@ -7,8 +7,10 @@ package com.luckyxmoible.mymemo;
 
 import androidx.room.Database;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
 
-@Database(entities={Diary.class},version=1)
+@Database(entities={Diary.class},version=1,exportSchema = false)
+@TypeConverters({DiaryTypeConverters.class})
 public abstract class DiaryDatabase extends RoomDatabase {
     public abstract DiaryDAO diaryDAO();
 }
