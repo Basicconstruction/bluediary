@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
                 DiaryDatabaseAccessor.getInstance(getApplicationContext()).diaryDAO().monitorAllDiaries();
         diaryLiveData.observe(this,diaryObserver);
         */
+
         FragmentManager fm = getSupportFragmentManager();
         if(savedInstanceState==null){
             FragmentTransaction ft = fm.beginTransaction();
@@ -57,8 +58,10 @@ public class MainActivity extends AppCompatActivity {
         dummyDiaries.add(new Diary("hello,this is the third diary"));
         dummyDiaries.add(new Diary("hello,this is the fourth diary"));
         mDiaryListFragment.setDiaries(dummyDiaries);
-    }
 
+
+    }
+    /*
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         super.onCreateOptionsMenu(menu);
@@ -75,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
         }
         return false;
-    }
+    }*/
 
 
 }
