@@ -18,18 +18,21 @@ public class Diary {
     @NonNull
     @PrimaryKey
     public String textContent;
-    public Date date;
-    @Ignore
+     //@Ignore
+    //public Date date;
+
     public Diary(String textContent){
         this.textContent = textContent;
-        this.date = new Date();
+        //this.date = new Date();
     }
+    @Ignore
     public Diary(String textContent,Date date){
         this.textContent = textContent;
-        this.date = date;
+        //this.date = date;
     }
     @Ignore
     public Diary(){
         this.textContent = "今天也是美好的一天！";
+        //this.date = new Date();
     }
 }

@@ -7,17 +7,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class DiaryListFragment extends Fragment {
     private ArrayList<Diary> mDiaries = new ArrayList<Diary>();
     private RecyclerView mRecyclerView;
     private DiaryRecyclerViewAdapter mDiaryAdapter = new DiaryRecyclerViewAdapter(mDiaries);
+    protected DiaryViewModel diaryViewModel;
     public DiaryListFragment(){
 
     }
@@ -46,4 +51,20 @@ public class DiaryListFragment extends Fragment {
             }
         }
     }
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        //error occur since here
+        super.onActivityCreated(savedInstanceState);
+        diaryViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(DiaryViewModel.class);
+        diaryViewModel.getDiaries().observe(this,new Observer<List<Diary>>(){
+            @Override
+            public void onChanged(@Nullable List<Diary> diaries){
+                if(diaries!=null){
+                    setDiaries(diaries);
+                }
+            }
+        });
+
+    }
+
 }

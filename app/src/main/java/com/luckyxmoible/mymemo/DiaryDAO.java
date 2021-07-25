@@ -18,7 +18,7 @@ public interface DiaryDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     public void insertDiary(List<Diary> diaries);
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     public void insertDiary(Diary diary);
 
     @Update
@@ -36,8 +36,8 @@ public interface DiaryDAO {
     @Query("DELETE FROM diary")
     public void deleteALLDiaries();
 
-    @Query("SELECT * FROM diary")
-    public List<Diary> loadAllDiaries();
+    @Query("SELECT * FROM diary ORDER BY textContent DESC")
+    public LiveData<List<Diary>> loadAllDiaries();
 
     @Query("SELECT * FROM diary WHERE textContent = :textContent")
     public Diary loadDiaryByTextContent(String textContent);

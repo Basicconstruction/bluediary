@@ -6,11 +6,14 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -23,26 +26,12 @@ public class MainActivity extends AppCompatActivity {
     private static final int SHOW_PREFERENCES = 1;
     public static final String TAG_LIST_FRAGMENT = "TAG_LIST_FRAGMENT";
     DiaryListFragment mDiaryListFragment;
+    DiaryViewModel diaryViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        /*
-        final Observer<List<Diary>> diaryObserver = new Observer<List<Diary>>(){
-            @Override
-            public void onChanged(@Nullable final List<Diary> updatedDiary){
-
-                需要扩展以根据数据库内容更新ui
-
-            }
-        };
-
-        LiveData diaryLiveData =
-                DiaryDatabaseAccessor.getInstance(getApplicationContext()).diaryDAO().monitorAllDiaries();
-        diaryLiveData.observe(this,diaryObserver);
-        */
-
         FragmentManager fm = getSupportFragmentManager();
         if(savedInstanceState==null){
             FragmentTransaction ft = fm.beginTransaction();
@@ -52,12 +41,7 @@ public class MainActivity extends AppCompatActivity {
         }else{
             mDiaryListFragment = (DiaryListFragment)fm.findFragmentByTag(TAG_LIST_FRAGMENT);
         }
-        List<Diary> dummyDiaries = new ArrayList<Diary>(0);
-        dummyDiaries.add(new Diary("hello,this is the first diary"));
-        dummyDiaries.add(new Diary("hello,this is the second diary"));
-        dummyDiaries.add(new Diary("hello,this is the third diary"));
-        dummyDiaries.add(new Diary("hello,this is the fourth diary"));
-        mDiaryListFragment.setDiaries(dummyDiaries);
+        diaryViewModel = ViewModelProviders.of(this).get(DiaryViewModel.class);
 
 
     }
@@ -78,6 +62,11 @@ public class MainActivity extends AppCompatActivity {
                 return true;
         }
         return false;
+    }
+    public void addNewDiary(View view){
+        Intent intent = new Intent(this,AddDiaryActivity.class);
+        startActivity(intent);
+
     }
 
 
