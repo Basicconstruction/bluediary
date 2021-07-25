@@ -36,7 +36,7 @@ public interface DiaryDAO {
     @Query("DELETE FROM diary")
     public void deleteALLDiaries();
 
-    @Query("SELECT * FROM diary ORDER BY textContent DESC")
+    @Query("SELECT * FROM diary ORDER BY textContent DESC")// ORDER BY textContent DESC
     public LiveData<List<Diary>> loadAllDiaries();
 
     @Query("SELECT * FROM diary WHERE textContent = :textContent")

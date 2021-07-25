@@ -8,50 +8,52 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.luckyxmoible.mymemo.databinding.ListItemDiaryBinding;
+
 import java.util.List;
 
 public class DiaryRecyclerViewAdapter extends
         RecyclerView.Adapter<DiaryRecyclerViewAdapter.ViewHolder> {
 
-    private final List<Diary> mDiarys;
+    private final List<Diary> mDiaries;
 
-    public DiaryRecyclerViewAdapter(List<Diary> Diarys ) {
-        mDiarys = Diarys;
+    public DiaryRecyclerViewAdapter(List<Diary> Diaries ) {
+        mDiaries = Diaries;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.list_item_diary,
-                        parent, false);
-        return new ViewHolder(view);
+
+        ListItemDiaryBinding binding = ListItemDiaryBinding.inflate(
+                LayoutInflater.from(parent.getContext()),parent,false);
+        return new ViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
-        holder.Diary = mDiarys.get(position);
-        holder.detailsView.setText(mDiarys.get(position).textContent);
+        Diary diary = mDiaries.get(position);
+        holder.binding.setDiary(diary);
+        holder.binding.executePendingBindings();
     }
 
     @Override
     public int getItemCount() {
-        return mDiarys.size();
+        return mDiaries.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public final View parentView;
-        public final TextView detailsView;
         public Diary Diary;
+        public final ListItemDiaryBinding binding;
 
-        public ViewHolder(View view) {
-            super(view);
-            parentView = view;
-            detailsView = (TextView)view.findViewById(R.id.list_item_diary_details);
-        }
-
-        @Override
-        public String toString() {
-            return super.toString() + " '" + detailsView.getText() + "'";
+        public ViewHolder(ListItemDiaryBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
         }
     }
 }
+/*
+        ListItemDiaryBinding binding = ListItemDiaryBinding.inflate(
+                LayoutInflater.from(parent.getContext(),parent,false);
+        )
+        return new ViewHolder(binding);
+ */
