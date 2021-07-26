@@ -20,9 +20,9 @@ import java.util.List;
 import java.util.Objects;
 
 public class DiaryListFragment extends Fragment {
-    private ArrayList<Diary> mDiaries = new ArrayList<Diary>();
+    private final ArrayList<Diary> mDiaries = new ArrayList<Diary>();
     private RecyclerView mRecyclerView;
-    private DiaryRecyclerViewAdapter mDiaryAdapter = new DiaryRecyclerViewAdapter(mDiaries);
+    private final DiaryRecyclerViewAdapter mDiaryAdapter = new DiaryRecyclerViewAdapter(mDiaries);
     protected DiaryViewModel diaryViewModel;
     public DiaryListFragment(){
 

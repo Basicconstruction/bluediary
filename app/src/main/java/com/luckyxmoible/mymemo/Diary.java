@@ -1,5 +1,6 @@
 package com.luckyxmoible.mymemo;
 
+import android.annotation.SuppressLint;
 import android.location.Location;
 
 import androidx.room.Entity;
@@ -9,13 +10,14 @@ import androidx.room.PrimaryKey;
 import androidx.annotation.NonNull;
 
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /*
-* 主要数据类，用作存储数据，app主要构建对象，依赖于这个对象进行与数据库，ui等的交互。
-* 一个Diary即是一个日记对象。
-* 对象数组存储到数据库，前端ui从数据库中获取到对象数组并展示出来。
-* */
+ * 主要数据类，用作存储数据，app主要构建对象，依赖于这个对象进行与数据库，ui等的交互。
+ * 一个Diary即是一个日记对象。
+ * 对象数组存储到数据库，前端ui从数据库中获取到对象数组并展示出来。
+ * */
 @Entity
 public class Diary {
     @NonNull
@@ -51,6 +53,10 @@ public class Diary {
     }
     public String getLocation(){
         return "河南-开封";
+    }
+    public String getTimeInfo(){
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        return sdf.format(this.date);
     }
 }
 /*
