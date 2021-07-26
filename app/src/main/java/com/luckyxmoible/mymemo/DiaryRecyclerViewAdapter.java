@@ -41,8 +41,7 @@ public class DiaryRecyclerViewAdapter extends
         return mDiaries.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        public Diary Diary;
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         public final ListItemDiaryBinding binding;
 
         public ViewHolder(ListItemDiaryBinding binding) {
@@ -51,9 +50,3 @@ public class DiaryRecyclerViewAdapter extends
         }
     }
 }
-/*
-        ListItemDiaryBinding binding = ListItemDiaryBinding.inflate(
-                LayoutInflater.from(parent.getContext(),parent,false);
-        )
-        return new ViewHolder(binding);
- */
