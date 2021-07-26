@@ -32,11 +32,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         FragmentManager fm = getSupportFragmentManager();
         if(savedInstanceState==null){
             FragmentTransaction ft = fm.beginTransaction();
+
             mDiaryListFragment = new DiaryListFragment();
-            ft.add(R.id.main_activity_frame,mDiaryListFragment, TAG_LIST_FRAGMENT);
+            //ft.add(R.id.main_activity_frame,mDiaryListFragment, TAG_LIST_FRAGMENT); //重复产生于这里
+            //这条语句的作用是向main_activity_frame添加一个mDiaryListFragment，本来在recyclerView就包括了一个？
             ft.commitNow();
         }else{
             mDiaryListFragment = (DiaryListFragment)fm.findFragmentByTag(TAG_LIST_FRAGMENT);

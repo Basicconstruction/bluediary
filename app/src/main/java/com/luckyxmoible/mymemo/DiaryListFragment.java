@@ -28,6 +28,10 @@ public class DiaryListFragment extends Fragment {
 
     }
     @Override
+    public void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+    }
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
        View view = inflater.inflate(R.layout.fragment_diary_list,container,false);
        mRecyclerView = (RecyclerView) view.findViewById(R.id.list);
@@ -50,10 +54,8 @@ public class DiaryListFragment extends Fragment {
             }
         }
     }
-    //我真棒
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        //error occur since here
         super.onActivityCreated(savedInstanceState);
         diaryViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(DiaryViewModel.class);
         diaryViewModel.getDiaries().observe(this,new Observer<List<Diary>>(){
