@@ -59,6 +59,7 @@ public class DiaryListFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         diaryViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(DiaryViewModel.class);
         diaryViewModel.getDiaries().observe(this,new Observer<List<Diary>>(){
+            //监视数据变化
             @Override
             public void onChanged(@Nullable List<Diary> diaries){
                 if(diaries!=null){

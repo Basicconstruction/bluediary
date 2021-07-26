@@ -30,7 +30,7 @@ public class AddDiaryActivity extends AppCompatActivity {
                         String data = et.getText().toString();
                         Log.e("hello",data);
                         DiaryDatabaseAccessor
-                                .getInstance(getApplication()).diaryDAO().insertDiary(new Diary(data));
+                                .getInstance(getApplication()).diaryDAO().insertDiary(new Diary("hello",data));
                         return true;
                     }
                 }.execute();

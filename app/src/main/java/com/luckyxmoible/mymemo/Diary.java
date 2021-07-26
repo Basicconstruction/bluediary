@@ -1,11 +1,14 @@
 package com.luckyxmoible.mymemo;
 
+import android.location.Location;
+
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import androidx.annotation.NonNull;
 
+import java.net.URL;
 import java.util.Date;
 
 /*
@@ -18,12 +21,23 @@ public class Diary {
     @NonNull
     @PrimaryKey
     public String textContent;
-     //@Ignore
-    //public Date date;
+    public String title;
+    public Date date;
+    public Location location;
+    public String imagePath;
+    public int imageRes;
+    @Ignore
+    public URL imageUrl;
 
-    public Diary(String textContent){
+
+
+    public Diary(String title,String textContent){
+        this.title = title;
         this.textContent = textContent;
-        //this.date = new Date();
+        this.date = new Date();
+        this.location = new Location("China");
+        this.imagePath = "/";
+        this.imageRes = 0;
     }
     @Ignore
     public Diary(String textContent,Date date){
@@ -35,4 +49,12 @@ public class Diary {
         this.textContent = "今天也是美好的一天！";
         //this.date = new Date();
     }
+    public String getLocation(){
+        return "河南-开封";
+    }
 }
+/*
+如果基本的控件也有clickListener,在控件上添加clickListener，主展示页面展示时间，标题和图片作为摘要。点击后进入一个 activity.
+展示详细内容。
+属性： 日期，地址，文本，标题，图片
+* */

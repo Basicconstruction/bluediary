@@ -1,5 +1,7 @@
 package com.luckyxmoible.mymemo;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +35,8 @@ public class DiaryRecyclerViewAdapter extends
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         Diary diary = mDiaries.get(position);
         holder.binding.setDiary(diary);
+        //Bitmap img = BitmapFactory.decodeFile(String.valueOf(diary.url)); keep
+        //holder.binding.ImageView.setImageBitmap(img); keep
         holder.binding.executePendingBindings();
     }
 

@@ -3,19 +3,59 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable name="diary" type="com.luckyxmoible.mymemo.Diary"/>
+        <variable name="diaryLocation" type="com.luckyxmoible.mymemo.Diary"/>
+        <variable name="timeformat" type="java.text.DateFormat"/>
     </data>
-    <FrameLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/list_item_diary_details"
-            android:layout_width="386dp"
-            android:layout_height="35dp"
+            android:id="@+id/title"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_margin="@dimen/text_margin"
-            android:text="@{diary.textContent}"
+            android:text="@{diary.title}"
             android:textAppearance="?attr/textAppearanceListItem"
             android:textColor="#000000"
-            app:drawableTint="#FF0303" />
-    </FrameLayout>
+            app:drawableTint="#FF0303"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/text_content"
+            app:layout_constraintEnd_toStartOf="@id/image_view"
+            />
+
+        <TextView
+            android:id="@+id/text_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{diary.textContent}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/location"
+            app:layout_constraintTop_toBottomOf="@id/title"
+            />
+
+        <TextView
+            android:id="@+id/location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{diary.getLocation}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title"
+            app:layout_constraintStart_toEndOf="@id/text_content"
+            app:layout_constraintEnd_toStartOf="@id/image_view"
+            />
+
+        <ImageView
+            android:id="@+id/image_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/location"
+            app:imageResource="@{diary.imageRes}"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
