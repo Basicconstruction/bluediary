@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -25,8 +26,10 @@ public class AddDiaryActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_diary_activity);
-        String title = "写日记";
-        this.getSupportActionBar().setTitle(title);
+        //String title = "写日记";
+        //this.getSupportActionBar().setTitle(title);
+        Toolbar toolbar = findViewById(R.id.add_toolbar);
+        setSupportActionBar(toolbar);
         TextView time_tv = (TextView)findViewById(R.id.time);
         time_tv.setText(Diary.getDateTime());
         Button button = (Button)findViewById(R.id.submit_button);
