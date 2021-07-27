@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">mymemo</string>
+    <string name="app_name">蓝枫日记</string>
     <string name="auto_theme_change">theme follow the time?</string>
     <string name="passkey_len_str">length of passkey</string>
     <string name="menu_settings">Settings</string>
@@ -7,4 +7,8 @@
     <string name="delete_button">DELETE</string>
     <string name="submit_text">SUBMIT</string>
     <string name="shot_img">first_of_allImage</string>
+    <string name="getPlace_button">GPS</string>
+    <string name="title_hint">标题(选填)</string>
+    <string name="text_content_hint">记录您的美好时光</string>
+    <string name="gps">还没有获取位置</string>
 </resources>

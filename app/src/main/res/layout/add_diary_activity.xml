@@ -2,41 +2,109 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/add_act_ct"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/add_ct2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/edit_text_title"
+        app:layout_constraintEnd_toEndOf="@id/add_act_ct"
+        app:layout_constraintStart_toStartOf="@id/add_act_ct"
+        app:layout_constraintTop_toTopOf="@id/add_act_ct"
+
+        />
+
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="300dp"
+        android:layout_height="30dp"
+        android:background="#66E8F5FB"
+        app:layout_constraintBottom_toTopOf="@id/placeShow"
+        app:layout_constraintEnd_toStartOf="@id/getPlace"
+        app:layout_constraintStart_toStartOf="@id/add_ct2"
+        app:layout_constraintTop_toTopOf="@id/add_ct2" />
+
+    <TextView
+        android:id="@+id/placeShow"
+        android:layout_width="300dp"
+        android:layout_height="30dp"
+        android:background="#66CFE8F3"
+        android:hint="@string/gps"
+        app:layout_constraintBottom_toBottomOf="@id/add_ct2"
+        app:layout_constraintEnd_toStartOf="@id/getPlace"
+        app:layout_constraintStart_toStartOf="@id/add_ct2"
+        app:layout_constraintTop_toBottomOf="@id/time" />
+
+    <Button
+        android:id="@+id/getPlace"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_margin="0dp"
+        android:text="@string/getPlace_button"
+        android:textColor="#000000"
+        android:textColorHighlight="#000000"
+        android:textColorHint="#5E5252"
+        android:textColorLink="#DFD153"
+        app:backgroundTint="#C5E1E4"
+        app:layout_constraintBottom_toBottomOf="@id/add_ct2"
+        app:layout_constraintEnd_toEndOf="@id/add_ct2"
+        app:layout_constraintStart_toEndOf="@id/time"
+        app:layout_constraintTop_toTopOf="@id/add_ct2" />
 
     <EditText
-        android:id="@+id/edit_text_blank"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:autofillHints="please put some content in"
-        android:singleLine="false"
-        android:minLines="1"
-        android:maxLines="10"
-        app:layout_constraintBottom_toTopOf="@id/image_view"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="LabelFor" />
+        android:id="@+id/edit_text_title"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:hint="@string/title_hint"
+        android:background="#E5F7FA"
+        android:singleLine="true"
+        app:layout_constraintBottom_toTopOf="@id/edit_text_content"
+        app:layout_constraintEnd_toEndOf="@id/add_act_ct"
+        app:layout_constraintStart_toStartOf="@id/add_act_ct"
+        app:layout_constraintTop_toBottomOf="@id/placeShow"
+        tools:ignore="LabelFor,TextFields，inputType" />
 
-    <ImageView
-        android:id="@+id/image_view"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+    <EditText
+        android:id="@+id/edit_text_content"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:hint="@string/text_content_hint"
+        android:background="#D9F1F4"
+        android:gravity="start"
+        android:maxLines="10"
+        android:minLines="1"
+        android:singleLine="false"
+        android:textColorHighlight="#070707"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@id/image_select"
+        app:layout_constraintEnd_toEndOf="@id/add_act_ct"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@id/add_act_ct"
+        app:layout_constraintTop_toBottomOf="@id/edit_text_title"
+        tools:ignore="LabelFor,TextFields,inputType" />
+
+    <TextView
+        android:id="@+id/image_select"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@id/submit_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/edit_text_blank"
-        android:contentDescription="TODO" />
+        app:layout_constraintEnd_toEndOf="@id/add_act_ct"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@id/add_act_ct"
+        app:layout_constraintTop_toBottomOf="@id/edit_text_content" />
+
     <Button
         android:id="@+id/submit_button"
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:text="@string/submit_text"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/image_view"
-        />
+        app:backgroundTint="#FFD7E5"
+        app:layout_constraintBottom_toBottomOf="@id/add_act_ct"
+        app:layout_constraintEnd_toEndOf="@id/add_act_ct"
+        app:layout_constraintStart_toStartOf="@id/add_act_ct"
+        app:layout_constraintTop_toBottomOf="@id/image_select" />
 </androidx.constraintlayout.widget.ConstraintLayout>

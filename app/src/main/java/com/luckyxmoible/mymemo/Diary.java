@@ -58,6 +58,38 @@ public class Diary {
         @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         return sdf.format(this.date);
     }
+    public static String getDateTime(){
+        Date date = new Date();
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("/dd.MM/yyyy");
+        String dateStr = sdf.format(date);
+        String ds = date.toString().substring(0,3);
+        switch (ds){
+            case "Mon":
+                ds = "星期一";
+                break;
+            case "Tue":
+                ds = "星期二";
+                break;
+            case "Wed":
+                ds = "星期三";
+                break;
+            case "Thu":
+                ds = "星期四";
+                break;
+            case "Fri":
+                ds = "星期五";
+                break;
+            case "Sat":
+                ds = "星期六";
+                break;
+            case "Sun":
+                ds = "星期日";
+                break;
+            default:
+                ds = "error";
+        }
+        return ds+dateStr;
+    }
 }
 /*
 如果基本的控件也有clickListener,在控件上添加clickListener，主展示页面展示时间，标题和图片作为摘要。点击后进入一个 activity.
