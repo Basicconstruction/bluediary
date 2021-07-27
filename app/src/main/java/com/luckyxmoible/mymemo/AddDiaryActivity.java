@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,6 +20,7 @@ import java.util.Date;
 import java.util.List;
 
 public class AddDiaryActivity extends AppCompatActivity {
+    private final int MENU_EMPTY = 3;
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -28,7 +32,7 @@ public class AddDiaryActivity extends AppCompatActivity {
             @Override
             public void onClick(View view){
                 //将数据写入数据库
-                new AsyncTask<Void, Void, Boolean>() {
+                new AsyncTask<Void, String, Boolean>() {
                     @SuppressLint("StaticFieldLeak")
                     @Override
                     protected Boolean doInBackground(Void... voids) {
@@ -48,6 +52,28 @@ public class AddDiaryActivity extends AppCompatActivity {
             }
         });
     }
+    public boolean onCreateOptionsMenu(Menu menu){
+        super.onCreateOptionsMenu(menu);
+        menu.add(1,MENU_EMPTY,0,R.string.empty_diary);
+        return true;
+    }
+    public boolean onOptionsItemSelected(MenuItem item){
+        super.onOptionsItemSelected(item);
+        switch(item.getItemId()){
+            case MENU_EMPTY:
+                empty_content();
+                break;
+            default:
+        }
+        return true;
 
+    }
+    public boolean empty_content(){
+        EditText et_textContent = (EditText)findViewById(R.id.edit_text_content);
+        et_textContent.setText("");
+        EditText et_title = (EditText)findViewById(R.id.edit_text_title);
+        et_title.setText("");
+        return true;
+    }
 
 }

@@ -11,4 +11,6 @@
     <string name="title_hint">标题(选填)</string>
     <string name="text_content_hint">记录您的美好时光</string>
     <string name="gps">还没有获取位置</string>
+    <string name="edit_diary">编辑日记</string>
+    <string name="empty_diary">清空内容</string>
 </resources>

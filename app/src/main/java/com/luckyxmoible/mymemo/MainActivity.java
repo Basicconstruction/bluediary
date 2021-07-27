@@ -22,7 +22,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final int MENU_PREFERENCES = Menu.FIRST+1;
+    public static final int MENU_PREFERENCES = Menu.FIRST+1;
     private static final int SHOW_PREFERENCES = 1;
     public static final String TAG_LIST_FRAGMENT = "TAG_LIST_FRAGMENT";
     DiaryListFragment mDiaryListFragment;
