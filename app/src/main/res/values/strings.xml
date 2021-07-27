@@ -13,4 +13,5 @@
     <string name="gps">还没有获取位置</string>
     <string name="edit_diary">编辑日记</string>
     <string name="empty_diary">清空内容</string>
+    <string name="write_diary">写日记</string>
 </resources>

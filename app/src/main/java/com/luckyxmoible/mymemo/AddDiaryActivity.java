@@ -25,6 +25,8 @@ public class AddDiaryActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_diary_activity);
+        String title = "写日记";
+        this.getSupportActionBar().setTitle(title);
         TextView time_tv = (TextView)findViewById(R.id.time);
         time_tv.setText(Diary.getDateTime());
         Button button = (Button)findViewById(R.id.submit_button);
@@ -74,6 +76,9 @@ public class AddDiaryActivity extends AppCompatActivity {
         EditText et_title = (EditText)findViewById(R.id.edit_text_title);
         et_title.setText("");
         return true;
+    }
+    public boolean empty_diary_call(MenuItem item){
+        return empty_content();
     }
 
 }
