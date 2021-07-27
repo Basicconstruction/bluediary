@@ -1,6 +1,7 @@
 package com.luckyxmoible.mymemo;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -43,6 +44,7 @@ public class AddDiaryActivity extends AppCompatActivity {
                         return true;
                     }
                 }.execute();
+                startActivity(new Intent(AddDiaryActivity.this,MainActivity.class));
             }
         });
     }
