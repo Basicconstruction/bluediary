@@ -1,10 +1,13 @@
 package com.luckyxmoible.mymemo;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.nfc.Tag;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,7 +28,17 @@ public class DiaryRecyclerViewAdapter extends
         RecyclerView.Adapter<DiaryRecyclerViewAdapter.ViewHolder> {
 
     private final List<Diary> mDiaries;
-    private RecyclerItemListener recyclerItemListener;
+    private Context context;
+    private final RecyclerItemListener recyclerItemListener = new RecyclerItemListener() {
+        @Override
+        public void onItemClick(Diary diary,View v) {
+            RecyclerItemListener.diary = diary;
+            Intent intent = new Intent(v.getContext(),ShowDiaryDetails.class);
+            //intent.putExtra("Diary symbol", (Parcelable) diary);
+            v.getContext().startActivity(intent);
+
+        }
+    };
 
     public DiaryRecyclerViewAdapter(List<Diary> Diaries ) {
         mDiaries = Diaries;
@@ -52,7 +65,7 @@ public class DiaryRecyclerViewAdapter extends
                 Log.d(TAG, "onClick: ");
                 //holder.binding.setDiary(new Diary("hehe","lala"));
                 if(recyclerItemListener!=null){
-                    recyclerItemListener.onItemClick(diary);
+                    recyclerItemListener.onItemClick(diary,v);
 
                 }
             }

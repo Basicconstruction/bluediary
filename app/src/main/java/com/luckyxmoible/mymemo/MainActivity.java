@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String TAG_LIST_FRAGMENT = "TAG_LIST_FRAGMENT";
     DiaryListFragment mDiaryListFragment;
     DiaryViewModel diaryViewModel;
+    public Activity activity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +72,10 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this,AddDiaryActivity.class);
         startActivity(intent);
 
+    }
+    @Override
+    public void onStart(){
+        super.onStart();
     }
     //purple_500用于应用栏
     //purple_700用于手机状态栏

@@ -38,7 +38,7 @@
             android:layout_height="30dp"
             android:paddingStart="15dp"
             android:paddingLeft="15dp"
-            android:text="@{diary.textContent}"
+            android:text="@{diary.getContentSummary}"
             app:layout_constraintBottom_toTopOf="@id/location"
             app:layout_constraintEnd_toStartOf="@id/image_view"
             app:layout_constraintStart_toStartOf="parent"

@@ -48,8 +48,12 @@ public class Diary {
     }
     @Ignore
     public Diary(){
+        this.title = "good day";
         this.textContent = "今天也是美好的一天！";
-        //this.date = new Date();
+        this.date = new Date();
+        this.location = new Location("China");
+        this.imagePath = "/";
+        this.imageRes = 0;
     }
     public String getLocation(){
         return "河南-开封";
@@ -90,7 +94,15 @@ public class Diary {
         }
         return ds+dateStr;
     }
+    public String getContentSummary(){
+        if(this.textContent.length()<10){
+            return this.textContent;
+        }else{
+            return this.textContent.substring(0,8)+"...";
+        }
+    }
 }
+
 /*
 如果基本的控件也有clickListener,在控件上添加clickListener，主展示页面展示时间，标题和图片作为摘要。点击后进入一个 activity.
 展示详细内容。
