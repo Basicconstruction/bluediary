@@ -16,4 +16,11 @@
     <string name="write_diary">写日记</string>
     <string name="back">BACK</string>
     <string name="edit">EDIT</string>
+    <string name="myDiary">我的日记</string>
+    <string name="time_pre">time</string>
+    <string name="title_pre">title</string>
+    <string name="location_pre">location</string>
+    <string name="content_pre">content</string>
+    <string name="back_add">back</string>
+    <string name="push_add">push</string>
 </resources>

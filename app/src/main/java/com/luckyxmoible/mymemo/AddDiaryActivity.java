@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,8 +33,8 @@ public class AddDiaryActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         TextView time_tv = (TextView)findViewById(R.id.time);
         time_tv.setText(Diary.getDateTime());
-        Button button = (Button)findViewById(R.id.submit_button);
-        button.setOnClickListener(new View.OnClickListener(){
+        ImageButton push_add = (ImageButton)findViewById(R.id.push_add);
+        push_add.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
                 //将数据写入数据库
@@ -56,22 +57,13 @@ public class AddDiaryActivity extends AppCompatActivity {
                 startActivity(new Intent(AddDiaryActivity.this,MainActivity.class));
             }
         });
-    }
-    public boolean onCreateOptionsMenu(Menu menu){
-        super.onCreateOptionsMenu(menu);
-        menu.add(1,MENU_EMPTY,0,R.string.empty_diary);
-        return true;
-    }
-    public boolean onOptionsItemSelected(MenuItem item){
-        super.onOptionsItemSelected(item);
-        switch(item.getItemId()){
-            case MENU_EMPTY:
-                empty_content();
-                break;
-            default:
-        }
-        return true;
-
+        ImageButton back_add = (ImageButton)findViewById(R.id.back_add);
+        back_add.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                startActivity(new Intent(view.getContext(),MainActivity.class));
+            }
+        });
     }
     public boolean empty_content(){
         EditText et_textContent = (EditText)findViewById(R.id.edit_text_content);

@@ -1,6 +1,10 @@
 package com.luckyxmoible.mymemo;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,5 +32,14 @@ public class ShowDiaryDetails extends AppCompatActivity {
         place.setText(diary.getLocation());
         TextView time = (TextView)findViewById(R.id.time_det);
         time.setText(diary.getTimeInfo());
+        ImageButton bt_back = (ImageButton)findViewById(R.id.back_button_det);
+        bt_back.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                //实际测试时，使用xml定义onClick属性运行时并不稳定。
+                startActivity(new Intent(view.getContext(),MainActivity.class));
+            }
+        });
+
     }
 }

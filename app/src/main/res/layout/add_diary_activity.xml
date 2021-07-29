@@ -15,28 +15,35 @@
         android:background="#D6F9FD"
         android:orientation="horizontal">
 
-        <Button
-            android:layout_width="30dp"
+        <ImageButton
+            android:id="@+id/back_add"
+            android:layout_width="60dp"
             android:layout_height="match_parent"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
-            app:backgroundTint="#050404" />
+            android:background="#D6F9FD"
+            android:src="@android:drawable/ic_notification_clear_all"
+            android:contentDescription="@string/back_add" />
 
         <TextView
             android:id="@+id/add_toolbar_text"
-            android:layout_width="300dp"
+            android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:gravity="center"
             android:text="@string/write_diary"
             android:layout_centerInParent="true"
-            android:textColor="#000000" />
+            android:textColor="#000000"
+            tools:ignore="RelativeOverlap" />
 
-        <Button
-            android:layout_width="30dp"
+        <ImageButton
+            android:id="@+id/push_add"
+            android:layout_width="60dp"
             android:layout_height="30dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            app:backgroundTint="#221D29" />
+            android:background="#D6F9FD"
+            android:src="@android:drawable/checkbox_on_background"
+            android:contentDescription="@string/push_add" />
     </RelativeLayout>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/add_ct2"
@@ -128,11 +135,5 @@
         android:layout_width="match_parent"
         android:layout_height="10dp"/>
 
-    <Button
-        android:id="@+id/submit_button"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:text="@string/submit_text"
-        android:textColor="@color/cardview_dark_background"
-        app:backgroundTint="#FFD7E5" />
+
 </androidx.appcompat.widget.LinearLayoutCompat>
