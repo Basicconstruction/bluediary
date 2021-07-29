@@ -60,7 +60,7 @@ public class Diary {
     }
     public static String getDateTime(){
         Date date = new Date();
-        @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("/dd.MM/yyyy");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("/MM.dd/yyyy");
         String dateStr = sdf.format(date);
         String ds = date.toString().substring(0,3);
         switch (ds){

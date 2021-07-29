@@ -8,7 +8,7 @@
     android:orientation="vertical"
     android:background="#FFFFFF">
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <RelativeLayout
         android:id="@+id/add_tb_ll"
         android:layout_width="match_parent"
         android:layout_height="30dp"
@@ -28,6 +28,7 @@
             android:layout_height="30dp"
             android:gravity="center"
             android:text="@string/write_diary"
+            android:layout_centerInParent="true"
             android:textColor="#000000" />
 
         <Button
@@ -36,7 +37,7 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             app:backgroundTint="#221D29" />
-    </androidx.appcompat.widget.LinearLayoutCompat>
+    </RelativeLayout>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/add_ct2"
         android:layout_width="match_parent"
