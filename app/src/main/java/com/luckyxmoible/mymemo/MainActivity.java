@@ -17,6 +17,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -47,6 +49,14 @@ public class MainActivity extends AppCompatActivity {
             mDiaryListFragment = (DiaryListFragment)fm.findFragmentByTag(TAG_LIST_FRAGMENT);
         }
         diaryViewModel = ViewModelProviders.of(this).get(DiaryViewModel.class);
+        FloatingActionButton fab = (FloatingActionButton)findViewById(R.id.add_button);
+        fab.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                addNewDiary(v);
+            }
+
+        });
 
 
     }

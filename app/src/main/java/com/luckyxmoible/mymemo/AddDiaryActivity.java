@@ -100,9 +100,9 @@ public class AddDiaryActivity extends AppCompatActivity {
         startActivityForResult(galley,PICK_IMAGE);
     }
     @Override
-    protected void onActivityResult(int resquestCode,int resultCode,Intent data){
-        super.onActivityResult(resquestCode,resultCode,data);
-        if(resultCode==RESULT_OK&&resquestCode==PICK_IMAGE){
+    protected void onActivityResult(int requestCode,int resultCode,Intent data){
+        super.onActivityResult(requestCode,resultCode,data);
+        if(resultCode==RESULT_OK&&requestCode==PICK_IMAGE){
             imageUri = data.getData();
             show_image.setImageURI(imageUri);
         }

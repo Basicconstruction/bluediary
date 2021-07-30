@@ -11,7 +11,7 @@
     <RelativeLayout
         android:id="@+id/add_tb_ll"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="40dp"
         android:background="#D6F9FD"
         android:orientation="horizontal">
 
