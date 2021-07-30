@@ -22,6 +22,7 @@ public class DiaryViewModel extends AndroidViewModel {
                     .getInstance(getApplication())
                     .diaryDAO().loadAllDiaries();
         }
+
         return diaries;
     }
 

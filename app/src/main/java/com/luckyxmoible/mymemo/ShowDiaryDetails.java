@@ -29,7 +29,8 @@ public class ShowDiaryDetails extends AppCompatActivity {
         TextView content = (TextView)findViewById(R.id.content_det);
         content.setText(diary.textContent);
         TextView place = (TextView)findViewById(R.id.loc_det);
-        place.setText(diary.getLocation());
+        //place.setText(diary.getLocation());
+        place.setText(diary.getUriLength());
         TextView time = (TextView)findViewById(R.id.time_det);
         time.setText(diary.getTimeInfo());
         ImageButton bt_back = (ImageButton)findViewById(R.id.back_button_det);

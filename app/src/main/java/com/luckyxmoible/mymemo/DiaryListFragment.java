@@ -1,8 +1,10 @@
 package com.luckyxmoible.mymemo;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.Layout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +22,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class DiaryListFragment extends Fragment {
+    private static final String TAG = "LENGTH OF diaries in DiaryListFragment:---";
     private final ArrayList<Diary> mDiaries = new ArrayList<Diary>();
     private RecyclerView mRecyclerView;
     private final DiaryRecyclerViewAdapter mDiaryAdapter = new DiaryRecyclerViewAdapter(mDiaries);
@@ -44,6 +47,7 @@ public class DiaryListFragment extends Fragment {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
         mRecyclerView.setAdapter(mDiaryAdapter);
     }
+    @SuppressLint("LongLogTag")
     public void setDiaries(List<Diary> diaries){
         mDiaries.clear();
         mDiaryAdapter.notifyDataSetChanged();
@@ -53,6 +57,7 @@ public class DiaryListFragment extends Fragment {
                 mDiaryAdapter.notifyItemInserted(mDiaries.indexOf(diary));
             }
         }
+        Log.d(TAG, diaries.size()+" ");
     }
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -60,10 +65,12 @@ public class DiaryListFragment extends Fragment {
         diaryViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(DiaryViewModel.class);
         diaryViewModel.getDiaries().observe(this,new Observer<List<Diary>>(){
             //监视数据变化
+            @SuppressLint("LongLogTag")
             @Override
             public void onChanged(@Nullable List<Diary> diaries){
                 if(diaries!=null){
                     setDiaries(diaries);
+                    Log.d(TAG, "载入数据");
                 }
             }
         });

@@ -2,6 +2,7 @@ package com.luckyxmoible.mymemo;
 
 import android.annotation.SuppressLint;
 import android.location.Location;
+import android.net.Uri;
 
 import androidx.room.Entity;
 import androidx.room.Ignore;
@@ -22,25 +23,29 @@ import java.util.Date;
 public class Diary {
     @NonNull
     @PrimaryKey
+    public Date date;
     public String textContent;
     public String title;
-    public Date date;
     public Location location;
-    public String imagePath;
-    public int imageRes;
+    public Uri[] uris;
+
+    public Diary(String title,String textContent,Uri[] uris){
+        this.title = title;
+        this.textContent = textContent;
+        this.date = new Date();
+        this.uris = uris;
+        this.location = new Location("China");
+    }
     @Ignore
-    public URL imageUrl;
-
-
-
     public Diary(String title,String textContent){
         this.title = title;
         this.textContent = textContent;
         this.date = new Date();
+        this.uris = new Uri[1];
         this.location = new Location("China");
-        this.imagePath = "/";
-        this.imageRes = 0;
     }
+
+
     @Ignore
     public Diary(String textContent,Date date){
         this.textContent = textContent;
@@ -52,8 +57,6 @@ public class Diary {
         this.textContent = "今天也是美好的一天！";
         this.date = new Date();
         this.location = new Location("China");
-        this.imagePath = "/";
-        this.imageRes = 0;
     }
     public String getLocation(){
         return "河南-开封";
@@ -100,6 +103,9 @@ public class Diary {
         }else{
             return this.textContent.substring(0,8)+"...";
         }
+    }
+    public String getUriLength(){
+        return this.uris.length+"";
     }
 }
 

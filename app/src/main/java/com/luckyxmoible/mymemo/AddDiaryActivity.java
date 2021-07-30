@@ -2,6 +2,7 @@ package com.luckyxmoible.mymemo;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.media.Image;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -26,6 +27,7 @@ import java.util.Date;
 import java.util.List;
 
 public class AddDiaryActivity extends AppCompatActivity {
+    private static final String TAG = "HELLO";
     private final int MENU_EMPTY = 3;
     Uri imageUri;
     TextView time_tv;
@@ -58,10 +60,19 @@ public class AddDiaryActivity extends AppCompatActivity {
                         String textContent = et_textContent.getText().toString();
                         EditText et_title = (EditText)findViewById(R.id.edit_text_title);
                         String title = et_title.getText().toString();
+
+                        ImageView img_v = (ImageView)findViewById(R.id.image_show);
+                        Uri[] uri = new Uri[]{imageUri};
+                        //Uri[] uri = new Uri[0];
                         if(textContent.equals("")&&title.equals("")){
                         }else{
                             DiaryDatabaseAccessor
-                                    .getInstance(getApplication()).diaryDAO().insertDiary(new Diary(title,textContent));
+                                    .getInstance(getApplication()).diaryDAO().insertDiary(new Diary(title,textContent,uri));
+                        }
+                        if(imageUri==null){
+                            Log.d(TAG, "OK");
+                        }else{
+                            Log.d(TAG, "doInBackground: "+imageUri.getPath());
                         }
                         return true;
                     }

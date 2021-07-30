@@ -89,5 +89,6 @@ public class MainActivity extends AppCompatActivity {
     }
     //purple_500用于应用栏
     //purple_700用于手机状态栏
+    //app:imageURI="@{diary.uris[0]}"
 
 }
