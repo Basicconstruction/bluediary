@@ -25,8 +25,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.luckyxmoible.mymemo.recyclerImageView.ImageListFragment;
+import com.luckyxmoible.mymemo.recyclerImageView.ImageViewModel;
 
 import java.net.URI;
 import java.util.ArrayList;
@@ -40,6 +43,8 @@ public class AddDiaryActivity extends AppCompatActivity {
     ImageListFragment mImageListFragment;
     private final int MENU_EMPTY = 3;
     Uri imageUri;
+    ImageViewModel mImageViewModel;
+    private Uri[] uris;
     TextView time_tv;
     Toolbar toolbar;
     ImageButton push_add;
@@ -113,9 +118,11 @@ public class AddDiaryActivity extends AppCompatActivity {
         if(savedInstanceState==null){
             FragmentTransaction ft2 = fm2.beginTransaction();
             mImageListFragment = new ImageListFragment();
+            ft2.commitNow();
         }else{
             mImageListFragment = (ImageListFragment)fm2.findFragmentByTag(TAG_IMAGE_LIST_FRAGMENT);
         }
+        mImageViewModel = ViewModelProviders.of(this).get(ImageViewModel.class);
     }
     public boolean empty_content(){
         EditText et_textContent = (EditText)findViewById(R.id.edit_text_content);
