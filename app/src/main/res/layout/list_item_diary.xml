@@ -20,7 +20,7 @@
 
         <TextView
             android:id="@+id/title"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:layout_margin="@dimen/text_margin"
             android:text="@{diary.title}"
@@ -34,7 +34,7 @@
 
         <TextView
             android:id="@+id/text_content"
-            android:layout_width="300dp"
+            android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:paddingStart="15dp"
             android:paddingLeft="15dp"
@@ -47,7 +47,7 @@
 
         <TextView
             android:id="@+id/date"
-            android:layout_width="180dp"
+            android:layout_width="wrap_content"
             android:layout_height="20dp"
             android:paddingStart="5dp"
             android:paddingLeft="5dp"
@@ -60,7 +60,7 @@
 
         <TextView
             android:id="@+id/location"
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
             android:layout_height="20dp"
             android:text="@{diary.getLocation}"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -70,14 +70,15 @@
 
         <ImageView
             android:id="@+id/image_view"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:contentDescription="@{diary.getUriLength}"
+            app:imageURI="@{diary.getPrimeUri}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/location"
             app:layout_constraintTop_toTopOf="@id/title"
 
-             />
+            />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

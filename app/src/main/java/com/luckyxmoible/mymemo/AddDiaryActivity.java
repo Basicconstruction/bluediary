@@ -25,6 +25,7 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Vector;
 
 public class AddDiaryActivity extends AppCompatActivity {
     private static final String TAG = "HELLO";
@@ -62,12 +63,14 @@ public class AddDiaryActivity extends AppCompatActivity {
                         String title = et_title.getText().toString();
 
                         ImageView img_v = (ImageView)findViewById(R.id.image_show);
-                        Uri[] uri = new Uri[]{imageUri};
+                        //Uri[] uri = new Uri[]{imageUri};
                         //Uri[] uri = new Uri[0];
+                        Vector<Uri> uris = new Vector<Uri>();
+                        uris.add(imageUri);
                         if(textContent.equals("")&&title.equals("")){
                         }else{
                             DiaryDatabaseAccessor
-                                    .getInstance(getApplication()).diaryDAO().insertDiary(new Diary(title,textContent,uri));
+                                    .getInstance(getApplication()).diaryDAO().insertDiary(new Diary(title,textContent,uris));
                         }
                         if(imageUri==null){
                             Log.d(TAG, "OK");

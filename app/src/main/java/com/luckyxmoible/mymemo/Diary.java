@@ -3,16 +3,20 @@ package com.luckyxmoible.mymemo;
 import android.annotation.SuppressLint;
 import android.location.Location;
 import android.net.Uri;
+import android.util.Log;
 
+import androidx.annotation.Nullable;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import androidx.annotation.NonNull;
+import androidx.room.TypeConverter;
 
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Vector;
 
 /*
  * 主要数据类，用作存储数据，app主要构建对象，依赖于这个对象进行与数据库，ui等的交互。
@@ -27,24 +31,25 @@ public class Diary {
     public String textContent;
     public String title;
     public Location location;
-    public Uri[] uris;
+    //public String s_uris;
+    public Vector<Uri> uris;
 
-    public Diary(String title,String textContent,Uri[] uris){
+
+    @Ignore
+    public Diary(String title,String textContent){
+        this.title = title;
+        this.textContent = textContent;
+        this.date = new Date();
+        this.location = new Location("China");
+    }
+
+    public Diary(String title,String textContent,Vector<Uri> uris){
         this.title = title;
         this.textContent = textContent;
         this.date = new Date();
         this.uris = uris;
         this.location = new Location("China");
     }
-    @Ignore
-    public Diary(String title,String textContent){
-        this.title = title;
-        this.textContent = textContent;
-        this.date = new Date();
-        this.uris = new Uri[1];
-        this.location = new Location("China");
-    }
-
 
     @Ignore
     public Diary(String textContent,Date date){
@@ -105,8 +110,17 @@ public class Diary {
         }
     }
     public String getUriLength(){
-        return this.uris.length+"";
+        return this.uris.size()+"";
     }
+    public Uri getPrimeUri(){
+        if(this.uris!= null&&this.uris.elementAt(0)!=null){
+            return this.uris.elementAt(0);
+        }else{
+            return null;
+        }
+
+    }
+
 }
 
 /*
