@@ -1,10 +1,12 @@
 package com.luckyxmoible.mymemo;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.media.Image;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -18,6 +20,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -94,6 +97,7 @@ public class AddDiaryActivity extends AppCompatActivity {
         select_image = (ImageButton)findViewById(R.id.image_select);
         show_image = (ImageView)findViewById(R.id.image_show);
         select_image.setOnClickListener(new View.OnClickListener(){
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onClick(View v){
                 openGalley();
@@ -110,8 +114,13 @@ public class AddDiaryActivity extends AppCompatActivity {
     public boolean empty_diary_call(MenuItem item){
         return empty_content();
     }
+    @SuppressLint("IntentReset")
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void openGalley(){
-        Intent galley = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+        Intent galley = new Intent(Intent.ACTION_OPEN_DOCUMENT, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+        galley.setType("image/*");
+        galley.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+        galley.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         startActivityForResult(galley,PICK_IMAGE);
     }
     @Override
@@ -119,7 +128,14 @@ public class AddDiaryActivity extends AppCompatActivity {
         super.onActivityResult(requestCode,resultCode,data);
         if(resultCode==RESULT_OK&&requestCode==PICK_IMAGE){
             imageUri = data.getData();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                getContext().getContentResolver().takePersistableUriPermission(imageUri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            }
             show_image.setImageURI(imageUri);
         }
+    }
+
+    private Context getContext() {
+        return this;
     }
 }
