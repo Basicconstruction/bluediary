@@ -67,6 +67,7 @@ public class AddDiaryActivity extends AppCompatActivity {
                         //Uri[] uri = new Uri[0];
                         Vector<Uri> uris = new Vector<Uri>();
                         uris.add(imageUri);
+                        Log.d("Length off uris",uris.size()+"");
                         if(textContent.equals("")&&title.equals("")){
                         }else{
                             DiaryDatabaseAccessor

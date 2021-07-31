@@ -19,7 +19,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.luckyxmoible.mymemo.databinding.ListItemDiaryBinding;
 
 import java.util.List;
 
@@ -48,14 +47,29 @@ public class DiaryRecyclerViewAdapter extends
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        ListItemDiaryBinding binding = ListItemDiaryBinding.inflate(
+
+        /*ListItemDiaryBinding binding = ListItemDiaryBinding.inflate(
                 LayoutInflater.from(parent.getContext()),parent,false);
-        return new ViewHolder(binding);
+        return new ViewHolder(binding);*/
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_diary,parent,false);
+        return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         Diary diary = mDiaries.get(position);
+        if(diary.uris!=null){
+            if(diary.uris.size()>=1){
+                if(diary.uris.get(0)!=null){
+                    holder.img_v1.setImageURI(diary.uris.get(0));
+                }
+            }
+        }
+        holder.title_v.setText(diary.title);
+        holder.textContent_v.setText(diary.textContent);
+        holder.time_v.setText(diary.getTimeInfo());
+        holder.local_v.setText(diary.getLocation());
+        /*
         holder.binding.setDiary(diary);
         //Bitmap img = BitmapFactory.decodeFile(String.valueOf(diary.url)); keep
         //holder.binding.ImageView.setImageBitmap(img); keep
@@ -70,7 +84,7 @@ public class DiaryRecyclerViewAdapter extends
 
                 }
             }
-        });
+        });*/
 
     }
 
@@ -80,11 +94,21 @@ public class DiaryRecyclerViewAdapter extends
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public final ListItemDiaryBinding binding;
+        public final View parentView;
+        public final TextView title_v;
+        public final TextView local_v;
+        public final TextView time_v;
+        public final TextView textContent_v;
+        public final ImageView img_v1;
 
-        public ViewHolder(ListItemDiaryBinding binding) {
-            super(binding.getRoot());
-            this.binding = binding;
+        public ViewHolder(View view) {
+            super(view);
+            parentView = view;
+            title_v = (TextView)view.findViewById(R.id.title);
+            time_v = (TextView)view.findViewById(R.id.date);
+            local_v = (TextView)view.findViewById(R.id.location);
+            textContent_v = (TextView)view.findViewById(R.id.text_content);
+            img_v1 = (ImageView)view.findViewById(R.id.image_view);
         }
     }
 }

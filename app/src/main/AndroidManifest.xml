@@ -24,7 +24,8 @@
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
-        <activity android:name=".AddDiaryActivity" android:theme="@style/Theme.AppCompat.NoActionBar">
+        <activity android:name=".AddDiaryActivity" android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:launchMode="singleTask">
 
         </activity>
         <activity android:name=".ShowDiaryDetails" android:theme="@style/Theme.AppCompat.NoActionBar"
