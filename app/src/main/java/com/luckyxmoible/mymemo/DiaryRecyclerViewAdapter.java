@@ -69,6 +69,15 @@ public class DiaryRecyclerViewAdapter extends
         holder.textContent_v.setText(diary.textContent);
         holder.time_v.setText(diary.getTimeInfo());
         holder.local_v.setText(diary.getLocation());
+        holder.itemView.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "onClick: ");
+                //holder.binding.setDiary(new Diary("hehe","lala"));
+                recyclerItemListener.onItemClick(diary,v);
+
+            }
+        });
         /*
         holder.binding.setDiary(diary);
         //Bitmap img = BitmapFactory.decodeFile(String.valueOf(diary.url)); keep

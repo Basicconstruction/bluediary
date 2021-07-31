@@ -23,6 +23,10 @@ import android.widget.TextView;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
+import com.luckyxmoible.mymemo.recyclerImageView.ImageListFragment;
 
 import java.net.URI;
 import java.util.ArrayList;
@@ -32,6 +36,8 @@ import java.util.Vector;
 
 public class AddDiaryActivity extends AppCompatActivity {
     private static final String TAG = "HELLO";
+    private static final String TAG_IMAGE_LIST_FRAGMENT = "TAG_IMAGE_LIST_FRAGMENT";
+    ImageListFragment mImageListFragment;
     private final int MENU_EMPTY = 3;
     Uri imageUri;
     TextView time_tv;
@@ -103,6 +109,13 @@ public class AddDiaryActivity extends AppCompatActivity {
                 openGalley();
             }
         });
+        FragmentManager fm2 = getSupportFragmentManager();
+        if(savedInstanceState==null){
+            FragmentTransaction ft2 = fm2.beginTransaction();
+            mImageListFragment = new ImageListFragment();
+        }else{
+            mImageListFragment = (ImageListFragment)fm2.findFragmentByTag(TAG_IMAGE_LIST_FRAGMENT);
+        }
     }
     public boolean empty_content(){
         EditText et_textContent = (EditText)findViewById(R.id.edit_text_content);

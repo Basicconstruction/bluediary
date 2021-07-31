@@ -23,4 +23,5 @@
     <string name="content_pre">content</string>
     <string name="back_add">back</string>
     <string name="push_add">push</string>
+    <string name="single_image">SINGLE IMAGE</string>
 </resources>
