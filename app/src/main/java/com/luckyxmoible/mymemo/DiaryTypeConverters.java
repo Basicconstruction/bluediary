@@ -35,12 +35,10 @@ public class DiaryTypeConverters {
     @SuppressLint("LongLogTag")
     @TypeConverter
     public static String UriToString(@Nullable Vector<Uri> uri){
-        String s_uri = new String("");
+        StringBuilder s_uri = new StringBuilder(new String(""));
         String hasNull = "--No";
         if(uri==null||uri.size() == 0||uri.elementAt(0)==null){
             Log.d(TAG, "storaged "+s_uri+hasNull);
-            Log.d(TAG,s_uri.length()+"");
-            //Log.d(TAG,StringToUri(s_uri)[0].toString());
             Log.d(TAG,s_uri.length()+"");
             return "";
         }
@@ -50,13 +48,13 @@ public class DiaryTypeConverters {
                 continue;
             }
             Log.d(TAG, uri_0.toString());
-            s_uri = s_uri + uri_0.toString()+"&&&";
+            s_uri.append(uri_0.toString()).append("&&&");
         }
         Log.d(TAG, "storaged "+s_uri+hasNull);
         Log.d(TAG,s_uri.length()+"");
-        Log.d(TAG,StringToUri(s_uri).elementAt(0).toString());
+        Log.d(TAG,StringToUri(s_uri.toString()).elementAt(0).toString());
         Log.d(TAG,s_uri.length()+"");
-        return s_uri;
+        return s_uri.toString();
     }
     @SuppressLint("LongLogTag")
     @TypeConverter

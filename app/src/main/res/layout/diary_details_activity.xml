@@ -79,6 +79,13 @@
             android:gravity="start"
             android:textColor="#000000"
             android:text="@string/content_pre" />
+        <LinearLayout
+            android:orientation="vertical"
+            android:id="@+id/image_det"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>

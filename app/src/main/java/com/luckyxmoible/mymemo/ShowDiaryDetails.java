@@ -1,10 +1,13 @@
 package com.luckyxmoible.mymemo;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -41,6 +44,16 @@ public class ShowDiaryDetails extends AppCompatActivity {
                 startActivity(new Intent(view.getContext(),MainActivity.class));
             }
         });
+        LinearLayout image_det_lin = (LinearLayout)findViewById(R.id.image_det);
+        for(Uri uri : diary.uris){
+            image_det_lin.removeAllViews();
+            if(uri!=null){
+                ImageView imageView = new ImageView(this);
+                imageView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+                imageView.setImageURI(uri);
+                image_det_lin.addView(imageView);
+            }
+        }
 
     }
 }

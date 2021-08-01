@@ -29,6 +29,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.luckyxmoible.mymemo.recyclerImageView.ImageListFragment;
+import com.luckyxmoible.mymemo.recyclerImageView.ImageStorage;
 import com.luckyxmoible.mymemo.recyclerImageView.ImageViewModel;
 
 import java.net.URI;
@@ -56,6 +57,16 @@ public class AddDiaryActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_diary_activity);
+        FragmentManager fm2 = getSupportFragmentManager();
+        if(savedInstanceState==null){
+            FragmentTransaction ft2 = fm2.beginTransaction();
+            mImageListFragment = new ImageListFragment();
+            mImageListFragment.mImageStorages.add(new ImageStorage());
+            ft2.commitNow();
+        }else{
+            mImageListFragment = (ImageListFragment)fm2.findFragmentByTag(TAG_IMAGE_LIST_FRAGMENT);
+        }
+        mImageViewModel = ViewModelProviders.of(this).get(ImageViewModel.class);
         //String title = "写日记";
         //this.getSupportActionBar().setTitle(title);
         toolbar = findViewById(R.id.add_toolbar);
@@ -76,16 +87,22 @@ public class AddDiaryActivity extends AppCompatActivity {
                         EditText et_title = (EditText)findViewById(R.id.edit_text_title);
                         String title = et_title.getText().toString();
 
-                        ImageView img_v = (ImageView)findViewById(R.id.image_show);
+                        //ImageView img_v = (ImageView)findViewById(R.id.image_show);
                         //Uri[] uri = new Uri[]{imageUri};
                         //Uri[] uri = new Uri[0];
                         Vector<Uri> uris = new Vector<Uri>();
-                        uris.add(imageUri);
+                        for(int i = 0; i < mImageListFragment.mImageStorages.get(0).uris.size();i++){
+                            if(mImageListFragment.mImageStorages.get(0).uris.get(i)!=null){
+                                uris.add(mImageListFragment.mImageStorages.get(0).uris.get(i));
+                            }
+                        }
+                        //uris.add(imageUri);
                         Log.d("Length off uris",uris.size()+"");
-                        if(textContent.equals("")&&title.equals("")){
+                        if(textContent.equals("")&&title.equals("")&&uris.size()==0){
                         }else{
                             DiaryDatabaseAccessor
                                     .getInstance(getApplication()).diaryDAO().insertDiary(new Diary(title,textContent,uris));
+                            mImageListFragment.mImageStorages.get(0).uris.clear();
                         }
                         if(imageUri==null){
                             Log.d(TAG, "OK");
@@ -106,7 +123,6 @@ public class AddDiaryActivity extends AppCompatActivity {
             }
         });
         select_image = (ImageButton)findViewById(R.id.image_select);
-        show_image = (ImageView)findViewById(R.id.image_show);
         select_image.setOnClickListener(new View.OnClickListener(){
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
@@ -114,15 +130,7 @@ public class AddDiaryActivity extends AppCompatActivity {
                 openGalley();
             }
         });
-        FragmentManager fm2 = getSupportFragmentManager();
-        if(savedInstanceState==null){
-            FragmentTransaction ft2 = fm2.beginTransaction();
-            mImageListFragment = new ImageListFragment();
-            ft2.commitNow();
-        }else{
-            mImageListFragment = (ImageListFragment)fm2.findFragmentByTag(TAG_IMAGE_LIST_FRAGMENT);
-        }
-        mImageViewModel = ViewModelProviders.of(this).get(ImageViewModel.class);
+
     }
     public boolean empty_content(){
         EditText et_textContent = (EditText)findViewById(R.id.edit_text_content);
@@ -151,7 +159,8 @@ public class AddDiaryActivity extends AppCompatActivity {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                 getContext().getContentResolver().takePersistableUriPermission(imageUri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
             }
-            show_image.setImageURI(imageUri);
+            //show_image.setImageURI(imageUri);
+            mImageListFragment.mImageStorages.get(0).uris.add(imageUri);
         }
     }
 

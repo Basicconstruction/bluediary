@@ -29,9 +29,9 @@ import java.util.List;
 import java.util.Objects;
 
 public class ImageListFragment extends Fragment {
-    private final ArrayList<Uri> mUris = new ArrayList<>();
+    public ArrayList<ImageStorage> mImageStorages = new ArrayList<>();
     private RecyclerView mRecyclerView2;
-    private final ImageRecyclerViewAdapter mImageAdapter = new ImageRecyclerViewAdapter(mUris);
+    private final ImageRecyclerViewAdapter mImageAdapter = new ImageRecyclerViewAdapter(mImageStorages);
     protected ImageViewModel imageViewModel;
     public ImageListFragment(){};
     @Override
@@ -44,13 +44,13 @@ public class ImageListFragment extends Fragment {
         mRecyclerView2 = (RecyclerView)view.findViewById(R.id.image_list);
         return view;
     }
-    public void setUris(List<Uri> uris){
-        mUris.clear();
+    public void setUris(List<ImageStorage> imageStorages){
+        mImageStorages.clear();
         mImageAdapter.notifyDataSetChanged();
-        for(Uri uri:uris){
-            if(!mUris.contains(uri)){
-                mUris.add(uri);
-                mImageAdapter.notifyItemInserted(mUris.indexOf(uri));
+        for(ImageStorage  imageStorage:imageStorages){
+            if(!mImageStorages.contains(imageStorage)){
+                mImageStorages.add(imageStorage);
+                mImageAdapter.notifyItemInserted(mImageStorages.indexOf(imageStorage));
             }
         }
     }
@@ -65,13 +65,13 @@ public class ImageListFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         imageViewModel= ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(ImageViewModel.class);
-        imageViewModel.getUris().observe(this,new Observer<List<Uri>>(){
+        imageViewModel.getImageStorages().observe(this,new Observer<List<ImageStorage>>(){
 
             //监视数据变化
             @Override
-            public void onChanged(@Nullable List<Uri> uris){
-                if(uris!=null){
-                    setUris(uris);
+            public void onChanged(@Nullable List<ImageStorage> imageStorages){
+                if(imageStorages!=null){
+                    setUris(imageStorages);
                 }
             }
         });

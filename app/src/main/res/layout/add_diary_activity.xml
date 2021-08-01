@@ -130,9 +130,9 @@
         android:visibility="visible"
         tools:ignore="LabelFor,TextFields,inputType" />
 
-    <ImageView
+    <fragment android:name="com.luckyxmoible.mymemo.recyclerImageView.ImageListFragment"
         android:id="@+id/image_show"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     <ImageButton
         android:id="@+id/image_select"
