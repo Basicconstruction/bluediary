@@ -45,6 +45,9 @@ public class ImageRecyclerViewAdapter extends
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         ImageStorage imageStorage = mImageStorages.get(position);
+        if(imageStorage.uris.size()-1<position){
+            //return;
+        }
         if(imageStorage.uris.get(position)!=null){
             holder.img_v.setImageURI(imageStorage.uris.get(position));
         }

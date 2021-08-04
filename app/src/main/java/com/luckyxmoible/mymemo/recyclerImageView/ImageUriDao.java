@@ -18,7 +18,7 @@ import java.util.List;
 @Dao
 public interface ImageUriDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    public void insertImageStorage(List<ImageStorage> imageStorages);
+    public void insertImageStorages(List<ImageStorage> imageStorages);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     public void insertImageStorage(ImageStorage imageStorage);
@@ -29,8 +29,14 @@ public interface ImageUriDao {
     @Update
     public void updateImageStorage(ImageStorage imageStorage);
 
+    @Update
+    public void updateImageStorages(List<ImageStorage> imageStorages);
+
     @Delete
     public void deleteImageStorage(ImageStorage imageStorage);
+
+    @Delete
+    public void deleteImageStorages(List<ImageStorage> imageStorages);
 
     @Query("DELETE FROM imageStorage")
     public void deleteALLImageStorages();

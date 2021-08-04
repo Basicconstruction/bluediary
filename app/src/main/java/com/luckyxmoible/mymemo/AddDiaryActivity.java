@@ -30,6 +30,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.luckyxmoible.mymemo.recyclerImageView.ImageListFragment;
 import com.luckyxmoible.mymemo.recyclerImageView.ImageStorage;
+import com.luckyxmoible.mymemo.recyclerImageView.ImageUriDatabaseAccessor;
 import com.luckyxmoible.mymemo.recyclerImageView.ImageViewModel;
 
 import java.net.URI;
@@ -77,6 +78,7 @@ public class AddDiaryActivity extends AppCompatActivity {
         push_add.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
+
                 //将数据写入数据库
                 new AsyncTask<Void, String, Boolean>() {
                     @SuppressLint("StaticFieldLeak")
@@ -102,16 +104,18 @@ public class AddDiaryActivity extends AppCompatActivity {
                         }else{
                             DiaryDatabaseAccessor
                                     .getInstance(getApplication()).diaryDAO().insertDiary(new Diary(title,textContent,uris));
-                            mImageListFragment.mImageStorages.get(0).uris.clear();
                         }
                         if(imageUri==null){
                             Log.d(TAG, "OK");
                         }else{
                             Log.d(TAG, "doInBackground: "+imageUri.getPath());
                         }
+                        ImageUriDatabaseAccessor.getInstance(getApplication()).imageUriDao().deleteImageStorage(mImageListFragment.mImageStorages.get(0));
+                        //mImageListFragment.mImageStorages.get(0).uris.clear();
                         return true;
                     }
                 }.execute();
+
                 startActivity(new Intent(AddDiaryActivity.this,MainActivity.class));
             }
         });
@@ -161,7 +165,18 @@ public class AddDiaryActivity extends AppCompatActivity {
             }
             //show_image.setImageURI(imageUri);
             mImageListFragment.mImageStorages.get(0).uris.add(imageUri);
+            new AsyncTask<Void, String, Boolean>() {
+                @SuppressLint("StaticFieldLeak")
+                @Override
+                protected Boolean doInBackground(Void... voids) {
+                    List<ImageStorage> cc = new ArrayList<>(0);
+                    cc.add(mImageListFragment.mImageStorages.get(0));
+                    ImageUriDatabaseAccessor.getInstance(getApplication()).imageUriDao().insertImageStorages(cc);
+                    return true;
+                }
+            }.execute();
         }
+
     }
 
     private Context getContext() {

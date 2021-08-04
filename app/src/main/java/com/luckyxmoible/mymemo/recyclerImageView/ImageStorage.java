@@ -13,6 +13,7 @@ import java.util.Vector;
 public class ImageStorage {
     @NonNull
     @PrimaryKey
+    public int key = 1;
     public Vector<Uri> uris;
 
     public ImageStorage(Vector<Uri> uris){

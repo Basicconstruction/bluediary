@@ -1,5 +1,6 @@
 package com.luckyxmoible.mymemo;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -23,6 +24,7 @@ public class ShowDiaryDetails extends AppCompatActivity {
         // 在这里的onCreate方法中直接引入diaries[position].属性
         //但是实际作用并不大，
     }
+    @SuppressLint("SetTextI18n")
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -33,7 +35,7 @@ public class ShowDiaryDetails extends AppCompatActivity {
         content.setText(diary.textContent);
         TextView place = (TextView)findViewById(R.id.loc_det);
         //place.setText(diary.getLocation());
-        place.setText(diary.getUriLength());
+        place.setText(diary.getLocation()+diary.getUriLength());
         TextView time = (TextView)findViewById(R.id.time_det);
         time.setText(diary.getTimeInfo());
         ImageButton bt_back = (ImageButton)findViewById(R.id.back_button_det);
@@ -49,7 +51,7 @@ public class ShowDiaryDetails extends AppCompatActivity {
             image_det_lin.removeAllViews();
             if(uri!=null){
                 ImageView imageView = new ImageView(this);
-                imageView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+                //imageView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
                 imageView.setImageURI(uri);
                 image_det_lin.addView(imageView);
             }
