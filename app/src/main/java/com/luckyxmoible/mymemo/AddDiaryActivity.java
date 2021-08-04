@@ -29,6 +29,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.luckyxmoible.mymemo.recyclerImageView.ImageListFragment;
+import com.luckyxmoible.mymemo.recyclerImageView.ImageSizeInterface;
 import com.luckyxmoible.mymemo.recyclerImageView.ImageStorage;
 import com.luckyxmoible.mymemo.recyclerImageView.ImageUriDatabaseAccessor;
 import com.luckyxmoible.mymemo.recyclerImageView.ImageViewModel;
@@ -54,10 +55,18 @@ public class AddDiaryActivity extends AppCompatActivity {
     ImageButton select_image;
     ImageView show_image;
     private static final int PICK_IMAGE = 100;
+    public  AddDiaryActivity(){
+        ImageSizeInterface.width = 300;
+        ImageSizeInterface.height = 300;
+        ImageSizeInterface.col = 3;
+    }
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_diary_activity);
+        ImageSizeInterface.width = 300;
+        ImageSizeInterface.height = 300;
+        ImageSizeInterface.col = 3;
         FragmentManager fm2 = getSupportFragmentManager();
         if(savedInstanceState==null){
             FragmentTransaction ft2 = fm2.beginTransaction();
@@ -134,6 +143,8 @@ public class AddDiaryActivity extends AppCompatActivity {
                 openGalley();
             }
         });
+        ImageSizeInterface.width = 100;
+        ImageSizeInterface.height = 100;
 
     }
     public boolean empty_content(){

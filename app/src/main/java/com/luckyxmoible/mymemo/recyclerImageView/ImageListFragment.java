@@ -53,12 +53,16 @@ public class ImageListFragment extends Fragment {
                 mImageAdapter.notifyItemInserted(mImageStorages.indexOf(imageStorage));
             }
         }
+        if(imageStorages.size()>=1){
+            Log.d("", "setUris: "+imageStorages.get(0).uris.size());
+        }
+
     }
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState){
         super.onViewCreated(view,savedInstanceState);
         Context context = view.getContext();
-        mRecyclerView2.setLayoutManager(new GridLayoutManager(context,3));
+        mRecyclerView2.setLayoutManager(new GridLayoutManager(context,ImageSizeInterface.col));
         mRecyclerView2.setAdapter(mImageAdapter);
     }
     @Override

@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,28 +45,43 @@ public class ImageRecyclerViewAdapter extends
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
-        ImageStorage imageStorage = mImageStorages.get(position);
-        if(imageStorage.uris.size()-1<position){
+        if(mImageStorages!=null){
             //return;
-        }
-        if(imageStorage.uris.get(position)!=null){
-            holder.img_v.setImageURI(imageStorage.uris.get(position));
+            if(mImageStorages.size()>=1){
+                if(mImageStorages.get(0).uris.get(position)!=null){
+                    Log.d(TAG, "GET POSITION :"+position);
+                    holder.img_v.setImageURI(mImageStorages.get(0).uris.get(position));
+                }
+            }
         }
     }
 
     @Override
     public int getItemCount() {
-        return mImageStorages.size();
+        if(mImageStorages==null){
+            return 0;
+        }else if(mImageStorages.size()<1){
+            return 0;
+        }else{
+            return mImageStorages.get(0).uris.size();
+        }
+
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public final View parentView;
         public final ImageView img_v;
+        public final LinearLayout linearImageControl;
 
         public ViewHolder(View view) {
             super(view);
             parentView = view;
             img_v = (ImageView)view.findViewById(R.id.single_image);
+            img_v.setMinimumWidth(ImageSizeInterface.width);
+            img_v.setMinimumHeight(ImageSizeInterface.height);
+            linearImageControl = (LinearLayout)view.findViewById(R.id.linearImageControl);
+            linearImageControl.setMinimumWidth(ImageSizeInterface.width);
+            linearImageControl.setMinimumHeight(ImageSizeInterface.height);
         }
     }
 }

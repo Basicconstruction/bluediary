@@ -29,11 +29,7 @@
             android:text="@{diary.title}"
             android:textAppearance="?attr/textAppearanceListItem"
             android:textColor="#000000"
-            app:drawableTint="#FF0303"
-            app:layout_constraintBottom_toTopOf="@id/date"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:drawableTint="#FF0303" />
 
         <TextView
             android:id="@+id/text_content"
@@ -42,10 +38,6 @@
             android:paddingStart="15dp"
             android:paddingLeft="15dp"
             android:text="@{diary.getContentSummary}"
-            app:layout_constraintBottom_toTopOf="@id/location"
-            app:layout_constraintEnd_toStartOf="@id/image_view"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/title"
             tools:ignore="RtlSymmetry" />
 
         <TextView
@@ -55,10 +47,6 @@
             android:paddingStart="15dp"
             android:paddingLeft="15dp"
             android:text="@{diary.getTimeInfo}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/location"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/title"
             tools:ignore="RtlSymmetry" />
 
         <TextView
@@ -68,10 +56,6 @@
             android:paddingStart="15dp"
             android:paddingLeft="15dp"
             android:text="@{diary.getLocation}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/image_view"
-            app:layout_constraintStart_toEndOf="@id/text_content"
-            app:layout_constraintTop_toBottomOf="@id/title"
             tools:ignore="RtlSymmetry" />
 
     </LinearLayout>
