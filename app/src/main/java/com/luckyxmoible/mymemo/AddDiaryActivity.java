@@ -23,6 +23,7 @@ import android.widget.TextView;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
@@ -44,16 +45,13 @@ public class AddDiaryActivity extends AppCompatActivity {
     private static final String TAG = "HELLO";
     private static final String TAG_IMAGE_LIST_FRAGMENT = "TAG_IMAGE_LIST_FRAGMENT";
     ImageListFragment mImageListFragment;
-    private final int MENU_EMPTY = 3;
     Uri imageUri;
     ImageViewModel mImageViewModel;
-    private Uri[] uris;
     TextView time_tv;
     Toolbar toolbar;
     ImageButton push_add;
     ImageButton back_add;
     ImageButton select_image;
-    ImageView show_image;
     private static final int PICK_IMAGE = 100;
     public  AddDiaryActivity(){
         ImageSizeInterface.width = 300;
@@ -97,10 +95,6 @@ public class AddDiaryActivity extends AppCompatActivity {
                         String textContent = et_textContent.getText().toString();
                         EditText et_title = (EditText)findViewById(R.id.edit_text_title);
                         String title = et_title.getText().toString();
-
-                        //ImageView img_v = (ImageView)findViewById(R.id.image_show);
-                        //Uri[] uri = new Uri[]{imageUri};
-                        //Uri[] uri = new Uri[0];
                         Vector<Uri> uris = new Vector<Uri>();
                         for(int i = 0; i < mImageListFragment.mImageStorages.get(0).uris.size();i++){
                             if(mImageListFragment.mImageStorages.get(0).uris.get(i)!=null){
@@ -143,8 +137,16 @@ public class AddDiaryActivity extends AppCompatActivity {
                 openGalley();
             }
         });
-        ImageSizeInterface.width = 100;
-        ImageSizeInterface.height = 100;
+        ImageButton lock = (ImageButton)findViewById(R.id.lock);
+        lock.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                DialogFragment dialog = new AddLockDialog();
+                dialog.show(getSupportFragmentManager(),"input the password");
+            }
+        });
+
 
     }
     public boolean empty_content(){
@@ -189,7 +191,37 @@ public class AddDiaryActivity extends AppCompatActivity {
         }
 
     }
+    /*
+    @Override
+    public void onRestart() {
+        super.onRestart();
+        if(mImageListFragment.mImageStorages!=null&&mImageListFragment.mImageStorages.size()>=1){
+            new AsyncTask<Void, String, Boolean>() {
+                @SuppressLint("StaticFieldLeak")
+                @Override
+                protected Boolean doInBackground(Void... voids) {
+                    ImageUriDatabaseAccessor.getInstance(getApplication()).imageUriDao().deleteImageStorage(mImageListFragment.mImageStorages.get(0));
+                    return true;
+                }
+            }.execute();
+        }
+    }*/
+    @Override
+    public void onDestroy() {
 
+        super.onDestroy();
+        if(mImageListFragment.mImageStorages!=null&&mImageListFragment.mImageStorages.size()>=1){
+            new AsyncTask<Void, String, Boolean>() {
+                @SuppressLint("StaticFieldLeak")
+                @Override
+                protected Boolean doInBackground(Void... voids) {
+                    ImageUriDatabaseAccessor.getInstance(getApplication()).imageUriDao().deleteImageStorage(mImageListFragment.mImageStorages.get(0));
+                    return true;
+                }
+            }.execute();
+        }
+
+    }
     private Context getContext() {
         return this;
     }

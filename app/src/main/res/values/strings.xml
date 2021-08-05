@@ -24,4 +24,7 @@
     <string name="back_add">back</string>
     <string name="push_add">push</string>
     <string name="single_image">SINGLE IMAGE</string>
+    <string name="password">please input the password</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
 </resources>
