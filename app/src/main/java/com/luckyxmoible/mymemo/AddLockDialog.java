@@ -19,8 +19,8 @@ import java.util.Objects;
 
 public class AddLockDialog extends DialogFragment {
     public interface MyDialogInterface {
-        public void onDialogPositiveClick(InterfaceUtils dialog);
-        public void onDialogNegativeClick(InterfaceUtils dialog);
+        public void onDialogPositiveClick(View layouts);
+        public void onDialogNegativeClick(View layouts);
     }
 
     public static class InterfaceUtils{
@@ -62,12 +62,12 @@ public class AddLockDialog extends DialogFragment {
                         Log.d("TAG", "onClick: "+password.getText());
                         InterfaceUtils.passwordText = password.getText().toString();
                         InterfaceUtils.isLocked = true;
-                        listener.onDialogPositiveClick(interfaceUtils);
+                        listener.onDialogPositiveClick(layouts);
                     }
                 })
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        listener.onDialogNegativeClick(interfaceUtils);
+                        listener.onDialogNegativeClick(layouts);
                         Objects.requireNonNull(AddLockDialog.this.getDialog()).cancel();
                     }
                 });

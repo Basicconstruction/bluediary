@@ -5,14 +5,17 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
@@ -26,25 +29,25 @@ import com.luckyxmoible.mymemo.recyclerImageView.ImageViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShowDiaryDetails extends AppCompatActivity {
+public class ShowDiaryDetails extends AppCompatActivity implements AddLockDialog.MyDialogInterface{
     private Diary diary;
     ImageViewModel mImageViewModel2;
     ImageListFragment mImageListFragment2;
     private static final String TAG_IMAGE_LIST_FRAGMENT2 = "TAG_IMAGE_LIST_FRAGMENT2";
+    boolean open;
     public ShowDiaryDetails(Diary diary){
         this.diary = diary;
         ImageSizeInterface.width = 300;
         ImageSizeInterface.height = 300;
         ImageSizeInterface.col = 1;
+        this.open = !diary.isLocked;
     }
     public ShowDiaryDetails(){
         this.diary = RecyclerItemListener.diary;
         ImageSizeInterface.width = 300;
         ImageSizeInterface.height = 300;
         ImageSizeInterface.col = 1;
-        //这是一种绑定方法，但是这种绑定方法会有额外的一点开销，事实上还可以传递diaries在View holder中的索引，
-        // 在这里的onCreate方法中直接引入diaries[position].属性
-        //但是实际作用并不大，
+        this.open = false;
     }
     @SuppressLint("SetTextI18n")
     @Override
@@ -61,7 +64,6 @@ public class ShowDiaryDetails extends AppCompatActivity {
             mImageListFragment2 = (ImageListFragment)fm3.findFragmentByTag(TAG_IMAGE_LIST_FRAGMENT2);
         }
         mImageViewModel2 = ViewModelProviders.of(this).get(ImageViewModel.class);
-
         TextView title = (TextView)findViewById(R.id.title_det);
         TextView content = (TextView)findViewById(R.id.content_det);
         TextView place = (TextView)findViewById(R.id.loc_det);
@@ -71,6 +73,7 @@ public class ShowDiaryDetails extends AppCompatActivity {
         if(diary.isLocked){
             content.setText("locked");
             place.setText("locked");
+            showNoticeDialog();
         }else{
             presentNoLock(content,place);
         }
@@ -91,9 +94,11 @@ public class ShowDiaryDetails extends AppCompatActivity {
             }
         });
 
+
+
     }
     @SuppressLint("SetTextI18n")
-    public void presentNoLock(TextView content, TextView place){
+    public void presentNoLock(TextView content,TextView place){
         content.setText(diary.textContent);
         place.setText(diary.getLocation()+diary.getUriLength());
         assert mImageListFragment2 != null;
@@ -108,5 +113,42 @@ public class ShowDiaryDetails extends AppCompatActivity {
                 return true;
             }
         }.execute();
+    }
+    public void showNoticeDialog() {
+        DialogFragment dialog = new AddLockDialog();
+        dialog.show(getSupportFragmentManager(), "NoticeDialogFragment");
+    }
+
+    @SuppressLint("SetTextI18n")
+    @Override
+    public void onDialogPositiveClick(View layouts) {
+        EditText pass_et = layouts.findViewById(R.id.password);
+        if(AddLockDialog.InterfaceUtils.passwordText.equals(diary.password)){
+            open = true;
+            Log.d("TAG", "onDialogPositiveClick: open is true");
+            TextView content = (TextView)findViewById(R.id.content_det);
+            TextView place = (TextView)findViewById(R.id.loc_det);
+            content.setText(diary.textContent);
+            place.setText(diary.getLocation()+diary.getUriLength());
+            assert mImageListFragment2 != null;
+            mImageListFragment2.mImageStorages.get(0).uris = diary.uris;
+            new AsyncTask<Void, String, Boolean>() {
+                @SuppressLint("StaticFieldLeak")
+                @Override
+                protected Boolean doInBackground(Void... voids) {
+                    List<ImageStorage> cc = new ArrayList<>(0);
+                    cc.add(mImageListFragment2.mImageStorages.get(0));
+                    ImageUriDatabaseAccessor.getInstance(getApplication()).imageUriDao().insertImageStorages(cc);
+                    return true;
+                }
+            }.execute();
+        }else{
+            showNoticeDialog();
+        }
+    }
+
+    @Override
+    public void onDialogNegativeClick(View layouts) {
+
     }
 }

@@ -222,14 +222,14 @@ public class AddDiaryActivity extends AppCompatActivity implements AddLockDialog
 
     @SuppressLint("SetTextI18n")
     @Override
-    public void onDialogPositiveClick(AddLockDialog.InterfaceUtils dialog) {
+    public void onDialogPositiveClick(View layouts) {
         EditText password = (EditText)findViewById(R.id.password);
         this.password = AddLockDialog.InterfaceUtils.passwordText;
         this.isLocked = AddLockDialog.InterfaceUtils.isLocked;
         time_tv.setText(time_tv.getText().toString()+"   locked");
     }
     @Override
-    public void onDialogNegativeClick(AddLockDialog.InterfaceUtils dialog) {
+    public void onDialogNegativeClick(View layouts) {
 
     }
 }
