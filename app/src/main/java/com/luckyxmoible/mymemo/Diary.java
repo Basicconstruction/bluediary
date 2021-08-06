@@ -30,25 +30,29 @@ public class Diary {
     public Date date;
     public String textContent;
     public String title;
-    public Location location;
-    //public String s_uris;
+    public String password;
+    public String location;
     public Vector<Uri> uris;
-
+    public boolean isLocked = false;
 
     @Ignore
     public Diary(String title,String textContent){
         this.title = title;
         this.textContent = textContent;
         this.date = new Date();
-        this.location = new Location("China");
+        this.uris = new Vector<>(0);
+        this.location = "";
+        this.isLocked = false;
     }
 
-    public Diary(String title,String textContent,Vector<Uri> uris){
+    public Diary(String title,String textContent,Vector<Uri> uris,String location,boolean isLocked,String password){
         this.title = title;
         this.textContent = textContent;
         this.date = new Date();
         this.uris = uris;
-        this.location = new Location("China");
+        this.location = location;
+        this.isLocked = isLocked;
+        this.password = password;
     }
 
     @Ignore
@@ -61,7 +65,8 @@ public class Diary {
         this.title = "good day";
         this.textContent = "今天也是美好的一天！";
         this.date = new Date();
-        this.location = new Location("China");
+        this.location = "";
+        this.isLocked = false;;
     }
     public String getLocation(){
         return "河南-开封";

@@ -1,5 +1,6 @@
 package com.luckyxmoible.mymemo;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -55,20 +56,30 @@ public class DiaryRecyclerViewAdapter extends
         return new ViewHolder(view);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
+        Log.d(TAG, "onBindViewHolder: "+position);
+        holder.img_v1.setImageResource(0);
         Diary diary = mDiaries.get(position);
-        if(diary.uris!=null){
-            if(diary.uris.size()>=1){
-                if(diary.uris.get(0)!=null){
-                    holder.img_v1.setImageURI(diary.uris.get(0));
+        if(diary.isLocked){
+            holder.textContent_v.setText("locked");
+            holder.local_v.setText("locked");
+        }else{
+            if(diary.uris!=null){
+                if(diary.uris.size()>=1){
+                    if(diary.uris.get(0)!=null){
+                        holder.img_v1.setImageURI(diary.uris.get(0));
+                        Log.d(TAG, "onBindViewHolder: "+diary.uris.get(0).toString());
+                    }
                 }
             }
+            holder.textContent_v.setText(diary.getContentSummary());
+            holder.local_v.setText(diary.getLocation());
         }
+
         holder.title_v.setText(diary.title);
-        holder.textContent_v.setText(diary.textContent);
         holder.time_v.setText(diary.getTimeInfo());
-        holder.local_v.setText(diary.getLocation());
         holder.itemView.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -78,22 +89,6 @@ public class DiaryRecyclerViewAdapter extends
 
             }
         });
-        /*
-        holder.binding.setDiary(diary);
-        //Bitmap img = BitmapFactory.decodeFile(String.valueOf(diary.url)); keep
-        //holder.binding.ImageView.setImageBitmap(img); keep
-        holder.binding.executePendingBindings();
-        holder.itemView.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                Log.d(TAG, "onClick: ");
-                //holder.binding.setDiary(new Diary("hehe","lala"));
-                if(recyclerItemListener!=null){
-                    recyclerItemListener.onItemClick(diary,v);
-
-                }
-            }
-        });*/
 
     }
 

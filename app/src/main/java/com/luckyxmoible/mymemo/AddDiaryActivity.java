@@ -41,7 +41,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 
-public class AddDiaryActivity extends AppCompatActivity {
+public class AddDiaryActivity extends AppCompatActivity implements AddLockDialog.MyDialogInterface{
     private static final String TAG = "HELLO";
     private static final String TAG_IMAGE_LIST_FRAGMENT = "TAG_IMAGE_LIST_FRAGMENT";
     ImageListFragment mImageListFragment;
@@ -52,11 +52,17 @@ public class AddDiaryActivity extends AppCompatActivity {
     ImageButton push_add;
     ImageButton back_add;
     ImageButton select_image;
+    boolean isLocked = false;
+    String password;
     private static final int PICK_IMAGE = 100;
     public  AddDiaryActivity(){
         ImageSizeInterface.width = 300;
         ImageSizeInterface.height = 300;
         ImageSizeInterface.col = 3;
+    }
+    public void showNoticeDialog() {
+        DialogFragment dialog = new AddLockDialog();
+        dialog.show(getSupportFragmentManager(), "NoticeDialogFragment");
     }
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -75,8 +81,6 @@ public class AddDiaryActivity extends AppCompatActivity {
             mImageListFragment = (ImageListFragment)fm2.findFragmentByTag(TAG_IMAGE_LIST_FRAGMENT);
         }
         mImageViewModel = ViewModelProviders.of(this).get(ImageViewModel.class);
-        //String title = "写日记";
-        //this.getSupportActionBar().setTitle(title);
         toolbar = findViewById(R.id.add_toolbar);
         setSupportActionBar(toolbar);
         time_tv = (TextView)findViewById(R.id.time);
@@ -95,6 +99,8 @@ public class AddDiaryActivity extends AppCompatActivity {
                         String textContent = et_textContent.getText().toString();
                         EditText et_title = (EditText)findViewById(R.id.edit_text_title);
                         String title = et_title.getText().toString();
+                        //String location = findViewById(R.id.location).toString();
+                        String location = "河南 开封";
                         Vector<Uri> uris = new Vector<Uri>();
                         for(int i = 0; i < mImageListFragment.mImageStorages.get(0).uris.size();i++){
                             if(mImageListFragment.mImageStorages.get(0).uris.get(i)!=null){
@@ -106,7 +112,7 @@ public class AddDiaryActivity extends AppCompatActivity {
                         if(textContent.equals("")&&title.equals("")&&uris.size()==0){
                         }else{
                             DiaryDatabaseAccessor
-                                    .getInstance(getApplication()).diaryDAO().insertDiary(new Diary(title,textContent,uris));
+                                    .getInstance(getApplication()).diaryDAO().insertDiary(new Diary(title,textContent,uris,location,isLocked,password));
                         }
                         if(imageUri==null){
                             Log.d(TAG, "OK");
@@ -115,6 +121,10 @@ public class AddDiaryActivity extends AppCompatActivity {
                         }
                         ImageUriDatabaseAccessor.getInstance(getApplication()).imageUriDao().deleteImageStorage(mImageListFragment.mImageStorages.get(0));
                         //mImageListFragment.mImageStorages.get(0).uris.clear();
+                        password = "";
+                        isLocked = false;
+                        AddLockDialog.InterfaceUtils.passwordText = "";
+                        AddLockDialog.InterfaceUtils.isLocked = false;
                         return true;
                     }
                 }.execute();
@@ -142,8 +152,7 @@ public class AddDiaryActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                DialogFragment dialog = new AddLockDialog();
-                dialog.show(getSupportFragmentManager(),"input the password");
+                showNoticeDialog();
             }
         });
 
@@ -191,21 +200,6 @@ public class AddDiaryActivity extends AppCompatActivity {
         }
 
     }
-    /*
-    @Override
-    public void onRestart() {
-        super.onRestart();
-        if(mImageListFragment.mImageStorages!=null&&mImageListFragment.mImageStorages.size()>=1){
-            new AsyncTask<Void, String, Boolean>() {
-                @SuppressLint("StaticFieldLeak")
-                @Override
-                protected Boolean doInBackground(Void... voids) {
-                    ImageUriDatabaseAccessor.getInstance(getApplication()).imageUriDao().deleteImageStorage(mImageListFragment.mImageStorages.get(0));
-                    return true;
-                }
-            }.execute();
-        }
-    }*/
     @Override
     public void onDestroy() {
 
@@ -224,5 +218,18 @@ public class AddDiaryActivity extends AppCompatActivity {
     }
     private Context getContext() {
         return this;
+    }
+
+    @SuppressLint("SetTextI18n")
+    @Override
+    public void onDialogPositiveClick(AddLockDialog.InterfaceUtils dialog) {
+        EditText password = (EditText)findViewById(R.id.password);
+        this.password = AddLockDialog.InterfaceUtils.passwordText;
+        this.isLocked = AddLockDialog.InterfaceUtils.isLocked;
+        time_tv.setText(time_tv.getText().toString()+"   locked");
+    }
+    @Override
+    public void onDialogNegativeClick(AddLockDialog.InterfaceUtils dialog) {
+
     }
 }

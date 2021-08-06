@@ -63,14 +63,17 @@ public class ShowDiaryDetails extends AppCompatActivity {
         mImageViewModel2 = ViewModelProviders.of(this).get(ImageViewModel.class);
 
         TextView title = (TextView)findViewById(R.id.title_det);
-        title.setText(diary.title);
         TextView content = (TextView)findViewById(R.id.content_det);
-        content.setText(diary.textContent);
         TextView place = (TextView)findViewById(R.id.loc_det);
-        //place.setText(diary.getLocation());
-        place.setText(diary.getLocation()+diary.getUriLength());
         TextView time = (TextView)findViewById(R.id.time_det);
+        title.setText(diary.title);
         time.setText(diary.getTimeInfo());
+        if(diary.isLocked){
+            content.setText("locked");
+            place.setText("locked");
+        }else{
+            presentNoLock(content,place);
+        }
         ImageButton bt_back = (ImageButton)findViewById(R.id.back_button_det);
         bt_back.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -88,6 +91,11 @@ public class ShowDiaryDetails extends AppCompatActivity {
             }
         });
 
+    }
+    @SuppressLint("SetTextI18n")
+    public void presentNoLock(TextView content, TextView place){
+        content.setText(diary.textContent);
+        place.setText(diary.getLocation()+diary.getUriLength());
         assert mImageListFragment2 != null;
         mImageListFragment2.mImageStorages.get(0).uris = diary.uris;
         new AsyncTask<Void, String, Boolean>() {
@@ -100,6 +108,5 @@ public class ShowDiaryDetails extends AppCompatActivity {
                 return true;
             }
         }.execute();
-
     }
 }
