@@ -28,6 +28,7 @@ import com.luckyxmoible.mymemo.recyclerImageView.ImageViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 public class ShowDiaryDetails extends AppCompatActivity implements AddLockDialog.MyDialogInterface{
     private Diary diary;
@@ -73,6 +74,18 @@ public class ShowDiaryDetails extends AppCompatActivity implements AddLockDialog
         if(diary.isLocked){
             content.setText("locked");
             place.setText("locked");
+            assert mImageListFragment2 != null;
+            mImageListFragment2.mImageStorages.get(0).uris = new Vector<>(0);
+            new AsyncTask<Void, String, Boolean>() {
+                @SuppressLint("StaticFieldLeak")
+                @Override
+                protected Boolean doInBackground(Void... voids) {
+                    List<ImageStorage> cc = new ArrayList<>(0);
+                    cc.add(mImageListFragment2.mImageStorages.get(0));
+                    ImageUriDatabaseAccessor.getInstance(getApplication()).imageUriDao().insertImageStorages(cc);
+                    return true;
+                }
+            }.execute();
             showNoticeDialog();
         }else{
             presentNoLock(content,place);
@@ -93,9 +106,18 @@ public class ShowDiaryDetails extends AppCompatActivity implements AddLockDialog
                 startActivity(new Intent(view.getContext(),MainActivity.class));
             }
         });
-
-
-
+    }
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        new AsyncTask<Void, String, Boolean>() {
+            @SuppressLint("StaticFieldLeak")
+            @Override
+            protected Boolean doInBackground(Void... voids) {
+                ImageUriDatabaseAccessor.getInstance(getApplication()).imageUriDao().deleteImageStorage(mImageListFragment2.mImageStorages.get(0));
+                return true;
+            }
+        }.execute();
     }
     @SuppressLint("SetTextI18n")
     public void presentNoLock(TextView content,TextView place){

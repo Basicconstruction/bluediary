@@ -47,11 +47,6 @@ public class DiaryRecyclerViewAdapter extends
 
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
-
-        /*ListItemDiaryBinding binding = ListItemDiaryBinding.inflate(
-                LayoutInflater.from(parent.getContext()),parent,false);
-        return new ViewHolder(binding);*/
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_diary,parent,false);
         return new ViewHolder(view);
     }
