@@ -3,30 +3,24 @@ package com.luckyxmoible.mymemo;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.media.Image;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.luckyxmoible.mymemo.recyclerImageView.ImageListFragment;
@@ -35,9 +29,7 @@ import com.luckyxmoible.mymemo.recyclerImageView.ImageStorage;
 import com.luckyxmoible.mymemo.recyclerImageView.ImageUriDatabaseAccessor;
 import com.luckyxmoible.mymemo.recyclerImageView.ImageViewModel;
 
-import java.net.URI;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 
@@ -48,17 +40,17 @@ public class AddDiaryActivity extends AppCompatActivity implements AddLockDialog
     Uri imageUri;
     ImageViewModel mImageViewModel;
     TextView time_tv;
-    Toolbar toolbar;
     ImageButton push_add;
     ImageButton back_add;
     ImageButton select_image;
     boolean isLocked = false;
     String password;
+    private static final int COLS = 6;
     private static final int PICK_IMAGE = 100;
     public  AddDiaryActivity(){
         ImageSizeInterface.width = 300;
         ImageSizeInterface.height = 300;
-        ImageSizeInterface.col = 3;
+        ImageSizeInterface.col = COLS;
     }
     public void showNoticeDialog() {
         DialogFragment dialog = new AddLockDialog();
@@ -67,10 +59,11 @@ public class AddDiaryActivity extends AppCompatActivity implements AddLockDialog
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         setContentView(R.layout.add_diary_activity);
         ImageSizeInterface.width = 300;
         ImageSizeInterface.height = 300;
-        ImageSizeInterface.col = 3;
+        ImageSizeInterface.col = COLS;
         FragmentManager fm2 = getSupportFragmentManager();
         if(savedInstanceState==null){
             FragmentTransaction ft2 = fm2.beginTransaction();
@@ -81,11 +74,9 @@ public class AddDiaryActivity extends AppCompatActivity implements AddLockDialog
             mImageListFragment = (ImageListFragment)fm2.findFragmentByTag(TAG_IMAGE_LIST_FRAGMENT);
         }
         mImageViewModel = ViewModelProviders.of(this).get(ImageViewModel.class);
-        toolbar = findViewById(R.id.add_toolbar);
-        setSupportActionBar(toolbar);
-        time_tv = (TextView)findViewById(R.id.time);
+        time_tv = findViewById(R.id.time);
         time_tv.setText(Diary.getDateTime());
-        push_add = (ImageButton)findViewById(R.id.push_add);
+        push_add = findViewById(R.id.push_add);
         push_add.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
@@ -95,13 +86,13 @@ public class AddDiaryActivity extends AppCompatActivity implements AddLockDialog
                     @SuppressLint("StaticFieldLeak")
                     @Override
                     protected Boolean doInBackground(Void... voids) {
-                        EditText et_textContent = (EditText)findViewById(R.id.edit_text_content);
+                        EditText et_textContent = findViewById(R.id.edit_text_content);
                         String textContent = et_textContent.getText().toString();
-                        EditText et_title = (EditText)findViewById(R.id.edit_text_title);
+                        EditText et_title = findViewById(R.id.edit_text_title);
                         String title = et_title.getText().toString();
                         //String location = findViewById(R.id.location).toString();
                         String location = "河南 开封";
-                        Vector<Uri> uris = new Vector<Uri>();
+                        Vector<Uri> uris = new Vector<>();
                         for(int i = 0; i < mImageListFragment.mImageStorages.get(0).uris.size();i++){
                             if(mImageListFragment.mImageStorages.get(0).uris.get(i)!=null){
                                 uris.add(mImageListFragment.mImageStorages.get(0).uris.get(i));
@@ -132,14 +123,14 @@ public class AddDiaryActivity extends AppCompatActivity implements AddLockDialog
                 startActivity(new Intent(AddDiaryActivity.this,MainActivity.class));
             }
         });
-        back_add = (ImageButton)findViewById(R.id.back_add);
+        back_add = findViewById(R.id.back_add);
         back_add.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
                 startActivity(new Intent(view.getContext(),MainActivity.class));
             }
         });
-        select_image = (ImageButton)findViewById(R.id.image_select);
+        select_image = findViewById(R.id.image_select);
         select_image.setOnClickListener(new View.OnClickListener(){
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
@@ -147,7 +138,7 @@ public class AddDiaryActivity extends AppCompatActivity implements AddLockDialog
                 openGalley();
             }
         });
-        ImageButton lock = (ImageButton)findViewById(R.id.lock);
+        ImageButton lock = findViewById(R.id.lock);
         lock.setOnClickListener(new View.OnClickListener(){
 
             @Override
@@ -159,19 +150,20 @@ public class AddDiaryActivity extends AppCompatActivity implements AddLockDialog
 
     }
     public boolean empty_content(){
-        EditText et_textContent = (EditText)findViewById(R.id.edit_text_content);
+        EditText et_textContent = findViewById(R.id.edit_text_content);
         et_textContent.setText("");
-        EditText et_title = (EditText)findViewById(R.id.edit_text_title);
+        EditText et_title = findViewById(R.id.edit_text_title);
         et_title.setText("");
         return true;
     }
-    public boolean empty_diary_call(MenuItem item){
+    public boolean empty_diary_call(){
         return empty_content();
     }
     @SuppressLint("IntentReset")
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void openGalley(){
         Intent galley = new Intent(Intent.ACTION_OPEN_DOCUMENT, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+        //Intent galley = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
         galley.setType("image/*");
         galley.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
         galley.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
@@ -223,7 +215,6 @@ public class AddDiaryActivity extends AppCompatActivity implements AddLockDialog
     @SuppressLint("SetTextI18n")
     @Override
     public void onDialogPositiveClick(View layouts) {
-        EditText password = (EditText)findViewById(R.id.password);
         this.password = AddLockDialog.InterfaceUtils.passwordText;
         this.isLocked = AddLockDialog.InterfaceUtils.isLocked;
         time_tv.setText(time_tv.getText().toString()+"   locked");

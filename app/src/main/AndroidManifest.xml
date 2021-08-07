@@ -23,7 +23,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Mymemo">
+        android:theme="@style/Theme.Mymemo"
+        android:windowSoftInputMode="adjustPan">
         <activity android:name=".MainActivity" android:launchMode="singleTask"
             >
             <intent-filter>

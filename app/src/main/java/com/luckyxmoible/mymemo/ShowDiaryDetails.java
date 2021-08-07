@@ -151,7 +151,7 @@ public class ShowDiaryDetails extends AppCompatActivity implements AddLockDialog
             TextView content = (TextView)findViewById(R.id.content_det);
             TextView place = (TextView)findViewById(R.id.loc_det);
             content.setText(diary.textContent);
-            place.setText(diary.getLocation()+diary.getUriLength());
+            place.setText(diary.getLocation());
             assert mImageListFragment2 != null;
             mImageListFragment2.mImageStorages.get(0).uris = diary.uris;
             new AsyncTask<Void, String, Boolean>() {
