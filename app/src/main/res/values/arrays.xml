@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="passkey_len_options">
+        <item>All choosable passkey len</item>
+        <item>length 4</item>
+        <item>length 6</item>
+        <item>length 8</item>
+    </string-array>
+    <string-array name="passkey_len">
+        <item>4</item>
+        <item>6</item>
+        <item>8</item>
+    </string-array>
+</resources>

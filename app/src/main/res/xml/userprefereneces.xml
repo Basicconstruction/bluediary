@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <SwitchPreference
+        android:key="PREF_AUTO_THEME"
+        android:title="@string/auto_theme_change"
+        android:summary="Select to turn on automatic theme changing by time"
+        android:defaultValue="true"/>
+    <ListPreference
+        android:key="PREF_PASSKEY_LEN"
+        android:title="@string/passkey_len_str"
+        android:summary="the length of the passkey"
+        android:entries="@array/passkey_len_options"
+        android:entryValues="@array/passkey_len"
+        android:dialogTitle="Choose a len"
+        android:defaultValue="4"/>
+</PreferenceScreen>

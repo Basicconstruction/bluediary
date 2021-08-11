@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/det"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/de_ori_toobar"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="#abcdef"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/back_button_det"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/abc_vector_test"
+            app:backgroundTint="#ABCDEF"
+            app:icon="@drawable/abc_vector_test"
+            app:iconTint="#FFFFFF"/>
+
+        <TextView
+            android:id="@+id/my_diary_det"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:ems="10"
+            android:gravity="center"
+            android:textColor="#000000"
+            android:text="@string/myDiary" />
+
+        <ImageButton
+            android:id="@+id/edit_button_det"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:src="@android:drawable/ic_menu_add"
+            app:backgroundTint="#ABCDEF" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/main_content_det"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FFFFFF"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/time_det"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:textColor="#000000"
+            android:text="@string/time_pre" />
+
+        <TextView
+            android:id="@+id/loc_det"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:textColor="#000000"
+            android:text="@string/location_pre" />
+
+        <TextView
+            android:id="@+id/title_det"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:textColor="#000000"
+            android:text="@string/title_pre" />
+
+        <TextView
+            android:id="@+id/content_det"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:textColor="#000000"
+            android:text="@string/content_pre" />
+        <fragment android:name="com.luckyxmoible.mymemo.recyclerImageView.ImageListFragment"
+            android:id="@+id/image_show"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+</LinearLayout>
