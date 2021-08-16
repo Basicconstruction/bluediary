@@ -35,13 +35,11 @@ public class DiaryRecyclerViewAdapter extends
         public void onItemClick(Diary diary,View v) {
             RecyclerItemListener.diary = diary;
             Intent intent = new Intent(v.getContext(),ShowDiaryDetails.class);
-            //intent.putExtra("Diary symbol", (Parcelable) diary);
             v.getContext().startActivity(intent);
             Log.d(TAG, "onItemClick: 6666666"+v.getContext().toString());
 
         }
     };
-
     public DiaryRecyclerViewAdapter(List<Diary> Diaries ) {
         mDiaries = Diaries;
     }

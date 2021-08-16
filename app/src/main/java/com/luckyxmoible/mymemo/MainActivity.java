@@ -40,16 +40,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         diaryViewModel = ViewModelProviders.of(this).get(DiaryViewModel.class);
         FloatingActionButton fab = (FloatingActionButton)findViewById(R.id.add_button);
-        fab.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                addNewDiary(v);
-            }
-
-        });
-
-
-
+        fab.setOnClickListener(this::addNewDiary);
     }
 
     @Override

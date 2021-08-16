@@ -23,7 +23,7 @@ import java.util.Objects;
 
 public class DiaryListFragment extends Fragment {
     private static final String TAG = "LENGTH OF diaries in DiaryListFragment:---";
-    private final ArrayList<Diary> mDiaries = new ArrayList<Diary>();
+    private final ArrayList<Diary> mDiaries = new ArrayList<>();
     private RecyclerView mRecyclerView;
     private final DiaryRecyclerViewAdapter mDiaryAdapter = new DiaryRecyclerViewAdapter(mDiaries);
     protected DiaryViewModel diaryViewModel;
