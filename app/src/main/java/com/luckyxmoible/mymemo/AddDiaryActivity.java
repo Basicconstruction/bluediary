@@ -193,9 +193,9 @@ public class AddDiaryActivity extends AppCompatActivity implements AddLockDialog
 
     }
     @Override
-    public void onDestroy() {
+    public void onStop() {
 
-        super.onDestroy();
+        super.onStop();
         if(mImageListFragment.mImageStorages!=null&&mImageListFragment.mImageStorages.size()>=1){
             new AsyncTask<Void, String, Boolean>() {
                 @SuppressLint("StaticFieldLeak")

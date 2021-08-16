@@ -37,6 +37,7 @@ public class DiaryRecyclerViewAdapter extends
             Intent intent = new Intent(v.getContext(),ShowDiaryDetails.class);
             //intent.putExtra("Diary symbol", (Parcelable) diary);
             v.getContext().startActivity(intent);
+            Log.d(TAG, "onItemClick: 6666666"+v.getContext().toString());
 
         }
     };

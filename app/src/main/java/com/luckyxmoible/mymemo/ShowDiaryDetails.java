@@ -122,7 +122,7 @@ public class ShowDiaryDetails extends AppCompatActivity implements AddLockDialog
     @SuppressLint("SetTextI18n")
     public void presentNoLock(TextView content,TextView place){
         content.setText(diary.textContent);
-        place.setText(diary.getLocation()+diary.getUriLength());
+        place.setText(diary.getLocation());
         assert mImageListFragment2 != null;
         mImageListFragment2.mImageStorages.get(0).uris = diary.uris;
         new AsyncTask<Void, String, Boolean>() {
