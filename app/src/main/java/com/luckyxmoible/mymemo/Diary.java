@@ -44,7 +44,7 @@ public class Diary {
         this.location = "";
         this.isLocked = false;
     }
-    @Ignore
+
     public Diary(String title,String textContent,Vector<Uri> uris,String location,boolean isLocked,String password){
         this.title = title;
         this.textContent = textContent;
@@ -54,6 +54,7 @@ public class Diary {
         this.isLocked = isLocked;
         this.password = password;
     }
+    @Ignore
     public Diary(String textContent, @NonNull Date date){
         this.textContent = textContent;
         this.date = date;

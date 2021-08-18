@@ -29,10 +29,9 @@ import java.util.List;
 import java.util.Objects;
 
 public class ImageListFragment extends Fragment {
-    public ArrayList<ImageStorage> mImageStorages = new ArrayList<>();
+    public ImageStorage mImageStorages = new ImageStorage();
     private RecyclerView mRecyclerView2;
     private final ImageRecyclerViewAdapter mImageAdapter = new ImageRecyclerViewAdapter(mImageStorages);
-    protected ImageViewModel imageViewModel;
     public ImageListFragment(){};
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -44,19 +43,23 @@ public class ImageListFragment extends Fragment {
         mRecyclerView2 = (RecyclerView)view.findViewById(R.id.image_list);
         return view;
     }
-    public void setUris(List<ImageStorage> imageStorages){
-        mImageStorages.clear();
+    public void setUris(ImageStorage imageStorages){
+        mImageStorages.uris.clear();
         mImageAdapter.notifyDataSetChanged();
-        for(ImageStorage  imageStorage:imageStorages){
-            if(!mImageStorages.contains(imageStorage)){
-                mImageStorages.add(imageStorage);
-                mImageAdapter.notifyItemInserted(mImageStorages.indexOf(imageStorage));
+        for(Uri uri:imageStorages.uris){
+            if(!mImageStorages.uris.contains(uri)){
+                mImageStorages.uris.add(uri);
+                mImageAdapter.notifyItemInserted(mImageStorages.uris.indexOf(uri));
             }
         }
-        if(imageStorages.size()>=1){
-            Log.d("", "setUris: "+imageStorages.get(0).uris.size());
-        }
 
+    }
+    public void insertUries(Uri uri){
+        if(!mImageStorages.uris.contains(uri)){
+            mImageStorages.uris.add(uri);
+//            mImageAdapter.notifyItemInserted(mImageStorages.indexOf(imageStorage));
+        }
+        mImageAdapter.notifyDataSetChanged();
     }
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState){
@@ -64,21 +67,5 @@ public class ImageListFragment extends Fragment {
         Context context = view.getContext();
         mRecyclerView2.setLayoutManager(new GridLayoutManager(context,ImageSizeInterface.col));
         mRecyclerView2.setAdapter(mImageAdapter);
-    }
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        imageViewModel= ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(ImageViewModel.class);
-        imageViewModel.getImageStorages().observe(this,new Observer<List<ImageStorage>>(){
-
-            //监视数据变化
-            @Override
-            public void onChanged(@Nullable List<ImageStorage> imageStorages){
-                if(imageStorages!=null){
-                    setUris(imageStorages);
-                }
-            }
-        });
-
     }
 }

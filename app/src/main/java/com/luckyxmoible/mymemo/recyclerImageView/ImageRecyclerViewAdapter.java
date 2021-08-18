@@ -16,12 +16,12 @@ import static androidx.constraintlayout.motion.widget.MotionScene.TAG;
 public class ImageRecyclerViewAdapter extends
         RecyclerView.Adapter<ImageRecyclerViewAdapter.ViewHolder> {
 
-    private final List<ImageStorage> mImageStorages;
-    private Context context;
-    public ImageRecyclerViewAdapter(List<ImageStorage> imageStorages) {
+    private final ImageStorage mImageStorages;
+    public ImageRecyclerViewAdapter(ImageStorage imageStorages) {
         mImageStorages = imageStorages;
     }
 
+    @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_image_view,parent,false);
@@ -31,12 +31,9 @@ public class ImageRecyclerViewAdapter extends
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         if(mImageStorages!=null){
-            //return;
-            if(mImageStorages.size()>=1){
-                if(mImageStorages.get(0).uris.get(position)!=null){
-                    Log.d(TAG, "GET POSITION :"+position);
-                    holder.img_v.setImageURI(mImageStorages.get(0).uris.get(position));
-                }
+            if(mImageStorages.uris.get(position)!=null){
+                Log.d(TAG, "GET POSITION :"+position);
+                holder.img_v.setImageURI(mImageStorages.uris.get(position));
             }
         }
     }
@@ -45,10 +42,8 @@ public class ImageRecyclerViewAdapter extends
     public int getItemCount() {
         if(mImageStorages==null){
             return 0;
-        }else if(mImageStorages.size()<1){
-            return 0;
         }else{
-            return mImageStorages.get(0).uris.size();
+            return mImageStorages.uris.size();
         }
 
     }

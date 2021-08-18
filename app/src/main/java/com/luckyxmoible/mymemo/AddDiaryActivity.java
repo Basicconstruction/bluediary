@@ -9,7 +9,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
@@ -25,9 +24,6 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.luckyxmoible.mymemo.recyclerImageView.ImageListFragment;
 import com.luckyxmoible.mymemo.recyclerImageView.ImageSizeInterface;
-import com.luckyxmoible.mymemo.recyclerImageView.ImageStorage;
-import com.luckyxmoible.mymemo.recyclerImageView.ImageUriDatabaseAccessor;
-import com.luckyxmoible.mymemo.recyclerImageView.ImageViewModel;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -39,7 +35,6 @@ public class AddDiaryActivity extends AppCompatActivity implements AddLockDialog
     private static final String TAG_IMAGE_LIST_FRAGMENT = "TAG_IMAGE_LIST_FRAGMENT";
     ImageListFragment mImageListFragment;
     Uri imageUri;
-    ImageViewModel mImageViewModel;
     TextView time_tv;
     ImageButton push_add;
     ImageButton back_add;
@@ -66,15 +61,7 @@ public class AddDiaryActivity extends AppCompatActivity implements AddLockDialog
         ImageSizeInterface.height = 300;
         ImageSizeInterface.col = COLS;
         FragmentManager fm2 = getSupportFragmentManager();
-        if(savedInstanceState==null){
-            FragmentTransaction ft2 = fm2.beginTransaction();
-            mImageListFragment = new ImageListFragment();
-            mImageListFragment.mImageStorages.add(new ImageStorage());
-            ft2.commitNow();
-        }else{
-            mImageListFragment = (ImageListFragment)fm2.findFragmentByTag(TAG_IMAGE_LIST_FRAGMENT);
-        }
-        mImageViewModel = ViewModelProviders.of(this).get(ImageViewModel.class);
+        mImageListFragment = (ImageListFragment)fm2.findFragmentById(R.id.image_show);
         time_tv = findViewById(R.id.time);
         time_tv.setText(Diary.getDateTime());
         push_add = findViewById(R.id.push_add);
@@ -94,26 +81,26 @@ public class AddDiaryActivity extends AppCompatActivity implements AddLockDialog
                         //String location = findViewById(R.id.location).toString();
                         String location = "河南 开封";
                         Vector<Uri> uris = new Vector<>();
-                        for(int i = 0; i < mImageListFragment.mImageStorages.get(0).uris.size();i++){
-                            if(mImageListFragment.mImageStorages.get(0).uris.get(i)!=null){
-                                uris.add(mImageListFragment.mImageStorages.get(0).uris.get(i));
+                        for(int i = 0; i < mImageListFragment.mImageStorages.uris.size();i++){
+                            if(mImageListFragment.mImageStorages.uris.get(i)!=null){
+                                uris.add(mImageListFragment.mImageStorages.uris.get(i));
                             }
                         }
                         //uris.add(imageUri);
                         Log.d("Length off uris",uris.size()+"");
                         if(textContent.equals("")&&title.equals("")&&uris.size()==0){
                         }else{
-//                            DiaryDatabaseAccessor
-//                                    .getInstance(getApplication()).diaryDAO().insertDiary(new Diary(title,textContent,uris,location,isLocked,password));
                             DiaryDatabaseAccessor
-                                    .getInstance(getApplication()).diaryDAO().insertDiary(new Diary(textContent,new Date()));
+                                    .getInstance(getApplication()).diaryDAO().insertDiary(new Diary(title,textContent,uris,location,isLocked,password));
+//                            DiaryDatabaseAccessor
+//                                    .getInstance(getApplication()).diaryDAO().insertDiary(new Diary(textContent,new Date()));
                         }
                         if(imageUri==null){
                             Log.d(TAG, "OK");
                         }else{
                             Log.d(TAG, "doInBackground: "+imageUri.getPath());
                         }
-                        ImageUriDatabaseAccessor.getInstance(getApplication()).imageUriDao().deleteImageStorage(mImageListFragment.mImageStorages.get(0));
+                        mImageListFragment.mImageStorages.uris.clear();
                         //mImageListFragment.mImageStorages.get(0).uris.clear();
                         password = "";
                         isLocked = false;
@@ -181,30 +168,21 @@ public class AddDiaryActivity extends AppCompatActivity implements AddLockDialog
                 getContext().getContentResolver().takePersistableUriPermission(imageUri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
             }
             //show_image.setImageURI(imageUri);
-            mImageListFragment.mImageStorages.get(0).uris.add(imageUri);
-            new AsyncTask<Void, String, Boolean>() {
-                @SuppressLint("StaticFieldLeak")
-                @Override
-                protected Boolean doInBackground(Void... voids) {
-                    List<ImageStorage> cc = new ArrayList<>(0);
-                    cc.add(mImageListFragment.mImageStorages.get(0));
-                    ImageUriDatabaseAccessor.getInstance(getApplication()).imageUriDao().insertImageStorages(cc);
-                    return true;
-                }
-            }.execute();
+            mImageListFragment.insertUries(imageUri);
         }
 
     }
     @Override
-    public void onStop() {
+    public void onDestroy() {
 
-        super.onStop();
-        if(mImageListFragment.mImageStorages!=null&&mImageListFragment.mImageStorages.size()>=1){
+        super.onDestroy();
+        Log.d(TAG, "onDestroy: "+"dead!!!!");
+        if(mImageListFragment.mImageStorages!=null){
             new AsyncTask<Void, String, Boolean>() {
                 @SuppressLint("StaticFieldLeak")
                 @Override
                 protected Boolean doInBackground(Void... voids) {
-                    ImageUriDatabaseAccessor.getInstance(getApplication()).imageUriDao().deleteImageStorage(mImageListFragment.mImageStorages.get(0));
+                    mImageListFragment.mImageStorages.uris.clear();
                     return true;
                 }
             }.execute();

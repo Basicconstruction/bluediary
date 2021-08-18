@@ -49,7 +49,7 @@ public class DiaryListFragment extends Fragment {
     }
     @SuppressLint("LongLogTag")
     public void setDiaries(List<Diary> diaries){
-//        mDiaries.clear();
+        mDiaries.clear();
 //        mDiaryAdapter.notifyDataSetChanged();
         ArrayList<String> md = new ArrayList<>();
         for(int i = 0;i < mDiaries.size();++i){
@@ -61,18 +61,18 @@ public class DiaryListFragment extends Fragment {
 //                mDiaryAdapter.notifyItemInserted(mDiaries.indexOf(diary));
             }
         }
-        Log.d("length of diaries in db ", diaries.size()+" ");
-        StringBuilder s = new StringBuilder();
-        for(Diary diary:diaries){
-            s.append(diary.getTimeInfo()).append(" ").append(diary.getContentSummary()).append(" ").append("\n");
-        }
-        Log.d("which are", s.toString());
-        Log.d("length of mDiaries in fragment ", mDiaries.size()+" ");
-        s = new StringBuilder();
-        for(Diary diary:mDiaries){
-            s.append(diary.getTimeInfo()).append(" ").append(diary.getContentSummary()).append("\n");
-        }
-        Log.d("which are", s.toString());
+//        Log.d("length of diaries in db ", diaries.size()+" ");
+//        StringBuilder s = new StringBuilder();
+//        for(Diary diary:diaries){
+//            s.append(diary.getTimeInfo()).append(" ").append(diary.getContentSummary()).append(" ").append("\n");
+//        }
+//        Log.d("which are", s.toString());
+//        Log.d("length of mDiaries in fragment ", mDiaries.size()+" ");
+//        s = new StringBuilder();
+//        for(Diary diary:mDiaries){
+//            s.append(diary.getTimeInfo()).append(" ").append(diary.getContentSummary()).append("\n");
+//        }
+//        Log.d("which are", s.toString());
         mDiaryAdapter.notifyDataSetChanged();
     }
     @SuppressLint("LongLogTag")
