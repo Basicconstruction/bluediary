@@ -50,14 +50,30 @@ public class DiaryListFragment extends Fragment {
     @SuppressLint("LongLogTag")
     public void setDiaries(List<Diary> diaries){
 //        mDiaries.clear();
-        mDiaryAdapter.notifyDataSetChanged();
+//        mDiaryAdapter.notifyDataSetChanged();
+        ArrayList<String> md = new ArrayList<>();
+        for(int i = 0;i < mDiaries.size();++i){
+            md.add(mDiaries.get(i).getTimeInfo());
+        }
         for(Diary diary:diaries){
-            if(!mDiaries.contains(diary)){
+            if(!md.contains(diary.getTimeInfo())){
                 mDiaries.add(diary);
 //                mDiaryAdapter.notifyItemInserted(mDiaries.indexOf(diary));
             }
         }
-        Log.d(TAG, diaries.size()+" ");
+        Log.d("length of diaries in db ", diaries.size()+" ");
+        StringBuilder s = new StringBuilder();
+        for(Diary diary:diaries){
+            s.append(diary.getTimeInfo()).append(" ").append(diary.getContentSummary()).append(" ").append("\n");
+        }
+        Log.d("which are", s.toString());
+        Log.d("length of mDiaries in fragment ", mDiaries.size()+" ");
+        s = new StringBuilder();
+        for(Diary diary:mDiaries){
+            s.append(diary.getTimeInfo()).append(" ").append(diary.getContentSummary()).append("\n");
+        }
+        Log.d("which are", s.toString());
+        mDiaryAdapter.notifyDataSetChanged();
     }
     @SuppressLint("LongLogTag")
     @Override

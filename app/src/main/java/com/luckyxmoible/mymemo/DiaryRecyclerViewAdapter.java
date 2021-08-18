@@ -88,6 +88,10 @@ public class DiaryRecyclerViewAdapter extends
 
     @Override
     public int getItemCount() {
+        if(mDiaries!=null){
+            Log.d(TAG, "getItemCount: xxx"+mDiaries.size());
+        }
+        assert mDiaries != null;
         return mDiaries.size();
     }
 

@@ -18,7 +18,7 @@
         android:src="@android:drawable/ic_input_add"
         android:contentDescription="@string/add_button" />
 
-    <fragment android:name="com.luckyxmoible.mymemo.DiaryListFragment"
+    <FrameLayout
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

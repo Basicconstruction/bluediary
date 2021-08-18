@@ -30,6 +30,7 @@ import com.luckyxmoible.mymemo.recyclerImageView.ImageUriDatabaseAccessor;
 import com.luckyxmoible.mymemo.recyclerImageView.ImageViewModel;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 
@@ -102,8 +103,10 @@ public class AddDiaryActivity extends AppCompatActivity implements AddLockDialog
                         Log.d("Length off uris",uris.size()+"");
                         if(textContent.equals("")&&title.equals("")&&uris.size()==0){
                         }else{
+//                            DiaryDatabaseAccessor
+//                                    .getInstance(getApplication()).diaryDAO().insertDiary(new Diary(title,textContent,uris,location,isLocked,password));
                             DiaryDatabaseAccessor
-                                    .getInstance(getApplication()).diaryDAO().insertDiary(new Diary(title,textContent,uris,location,isLocked,password));
+                                    .getInstance(getApplication()).diaryDAO().insertDiary(new Diary(textContent,new Date()));
                         }
                         if(imageUri==null){
                             Log.d(TAG, "OK");

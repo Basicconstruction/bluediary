@@ -33,11 +33,18 @@ public class MainActivity extends AppCompatActivity {
     public static final String TAG_LIST_FRAGMENT = "TAG_LIST_FRAGMENT";
     DiaryListFragment mDiaryListFragment;
     DiaryViewModel diaryViewModel;
-
+    FragmentManager fragmentManager = getSupportFragmentManager();
+    FragmentTransaction fragmentTransaction;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        if(savedInstanceState==null){
+            fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.add(R.id.recyclerView,new DiaryListFragment());
+            fragmentTransaction.commitNow();
+        }
+        mDiaryListFragment = (DiaryListFragment)fragmentManager.findFragmentById(R.id.recyclerView);
         diaryViewModel = ViewModelProviders.of(this).get(DiaryViewModel.class);
         FloatingActionButton fab = (FloatingActionButton)findViewById(R.id.add_button);
         fab.setOnClickListener(this::addNewDiary);
