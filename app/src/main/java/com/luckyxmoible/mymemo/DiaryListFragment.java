@@ -49,29 +49,26 @@ public class DiaryListFragment extends Fragment {
     }
     @SuppressLint("LongLogTag")
     public void setDiaries(List<Diary> diaries){
-        mDiaries.clear();
+//        mDiaries.clear();
         mDiaryAdapter.notifyDataSetChanged();
         for(Diary diary:diaries){
             if(!mDiaries.contains(diary)){
                 mDiaries.add(diary);
-                mDiaryAdapter.notifyItemInserted(mDiaries.indexOf(diary));
+//                mDiaryAdapter.notifyItemInserted(mDiaries.indexOf(diary));
             }
         }
         Log.d(TAG, diaries.size()+" ");
     }
+    @SuppressLint("LongLogTag")
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         diaryViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(DiaryViewModel.class);
-        diaryViewModel.getDiaries().observe(this,new Observer<List<Diary>>(){
-            //监视数据变化
-            @SuppressLint("LongLogTag")
-            @Override
-            public void onChanged(@Nullable List<Diary> diaries){
-                if(diaries!=null){
-                    setDiaries(diaries);
-                    Log.d(TAG, "载入数据");
-                }
+        //监视数据变化
+        diaryViewModel.getDiaries().observe(this, diaries -> {
+            if(diaries!=null){
+                setDiaries(diaries);
+                Log.d(TAG, "载入数据");
             }
         });
 

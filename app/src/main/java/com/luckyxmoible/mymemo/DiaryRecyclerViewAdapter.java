@@ -28,7 +28,7 @@ import static androidx.constraintlayout.motion.widget.MotionScene.TAG;
 public class DiaryRecyclerViewAdapter extends
         RecyclerView.Adapter<DiaryRecyclerViewAdapter.ViewHolder> {
 
-    private final List<Diary> mDiaries;
+    public final List<Diary> mDiaries;
     private Context context;
     private final RecyclerItemListener recyclerItemListener = new RecyclerItemListener() {
         @Override
